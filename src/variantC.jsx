@@ -14,9 +14,10 @@ const C_PAL = {
 
 // Monospace section label — left gutter index + tracked label + rule
 function C_Label({ n, title, sub }) {
+  const hasIndex = Boolean(n);
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "56px 1fr auto", alignItems: "baseline", gap: 20, marginBottom: 40 }}>
-      <span style={{ fontSize: 11, color: C_PAL.accent, letterSpacing: 2 }}>{n}</span>
+    <div style={{ display: "grid", gridTemplateColumns: hasIndex ? "56px 1fr auto" : "1fr auto", alignItems: "baseline", gap: 20, marginBottom: 40 }}>
+      {hasIndex ? <span style={{ fontSize: 11, color: C_PAL.accent, letterSpacing: 2 }}>{n}</span> : null}
       <div style={{ display: "flex", alignItems: "baseline", gap: 18 }}>
         <span style={{ fontSize: 13, color: C_PAL.ink, letterSpacing: 3, textTransform: "uppercase" }}>{title}</span>
         {sub && <span style={{ fontSize: 11, color: C_PAL.dim, letterSpacing: 1.5 }}>{sub}</span>}
@@ -126,7 +127,7 @@ function C_Tracks() {
   const { active, progresses, toggle, bind } = useAudioPlayer(EP.tracks.length);
   return (
     <section id="tracks" style={{ padding: "96px 40px", borderBottom: `1px solid ${C_PAL.line}` }}>
-      <C_Label n="01" title="Tracks" />
+      <C_Label title="Tracks" />
 
       <div style={{
         display: "grid",
