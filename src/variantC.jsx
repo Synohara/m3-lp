@@ -31,7 +31,11 @@ function C_TopBar() {
   const { step, sub } = useBpmClock(160);
   return (
     <div style={{
-      position: "sticky", top: 0, zIndex: 10,
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      zIndex: 50,
       padding: "16px 40px",
       background: "rgba(11,11,13,0.9)",
       backdropFilter: "blur(6px)",
@@ -69,7 +73,7 @@ function C_TopBar() {
 
 function C_Hero() {
   return (
-    <section style={{ padding: "80px 40px 96px", borderBottom: `1px solid ${C_PAL.line}` }}>
+    <section style={{ padding: "132px 40px 96px", borderBottom: `1px solid ${C_PAL.line}` }}>
       <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: 72, alignItems: "center" }}>
         <div>
           <div style={{ fontSize: 11, letterSpacing: 3, color: C_PAL.dim, marginBottom: 32 }}>
