@@ -223,7 +223,7 @@ function useAudioPlayer(trackCount) {
 }
 
 // --- 160 BPM pulse (global clock for Juke time) ---
-// Returns beat index (monotonic), step (0..15 within bar), sub (0..1 within beat).
+// Returns beat index, 16th-note step (0..15 within bar), and sub-beat progress.
 function useBpmClock(bpm = 160) {
   const [t, setT] = React.useState(0);
   React.useEffect(() => {
@@ -236,8 +236,9 @@ function useBpmClock(bpm = 160) {
     return () => cancelAnimationFrame(raf);
   }, []);
   const beatsPerSec = bpm / 60;
+  const stepsPerSec = beatsPerSec * 4;
   const beat = Math.floor(t * beatsPerSec);
-  const step = beat % 16;
+  const step = Math.floor(t * stepsPerSec) % 16;
   const sub = (t * beatsPerSec) % 1;
   return { t, beat, step, sub };
 }
