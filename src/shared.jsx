@@ -7,7 +7,7 @@ const EP = {
   year: "2026",
   format: "4 tracks / EP",
   price: "name your price",
-  tagline: "Juke / Footwork — 160 BPM, classical samples, chopped.",
+  tagline: "",
   taglineJa: "160の世界で、クラシックとサンプリングをビートに落とす。",
   description:
     "Chicago産のJuke / Footworkを軸に、クラシック音楽のフレーズや呼吸をサンプリングし、160BPMの網目に縫い込んだ4曲入りEP。静謐と衝動のあいだ。",

@@ -111,8 +111,13 @@ function A_Hero() {
             color: A_PAL.ink,
             opacity: 0.85,
           }}>
-            {EP.taglineJa}<br/>
-            <span style={{ color: A_PAL.dim, fontSize: 13, letterSpacing: 0.5 }}>{EP.tagline}</span>
+            {EP.taglineJa}
+            {EP.tagline ? (
+              <>
+                <br/>
+                <span style={{ color: A_PAL.dim, fontSize: 13, letterSpacing: 0.5 }}>{EP.tagline}</span>
+              </>
+            ) : null}
           </p>
           <div style={{ marginTop: 36, display: "flex", gap: 12, flexWrap: "wrap" }}>
             <a href="#tracks" style={{

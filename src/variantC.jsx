@@ -78,17 +78,19 @@ function C_Hero() {
           <div style={{ marginTop: 18, fontSize: 12, letterSpacing: 2, color: C_PAL.sub }}>
             {EP.titleSub}
           </div>
-          <p style={{
-            marginTop: 40,
-            maxWidth: 560,
-            fontSize: 13,
-            lineHeight: 1.9,
-            color: C_PAL.dim,
-            letterSpacing: 1,
-            fontFamily: "'JetBrains Mono', monospace",
-          }}>
-            {EP.tagline}
-          </p>
+          {EP.tagline ? (
+            <p style={{
+              marginTop: 40,
+              maxWidth: 560,
+              fontSize: 13,
+              lineHeight: 1.9,
+              color: C_PAL.dim,
+              letterSpacing: 1,
+              fontFamily: "'JetBrains Mono', monospace",
+            }}>
+              {EP.tagline}
+            </p>
+          ) : null}
 
           <div style={{ marginTop: 40, display: "flex", gap: 10, flexWrap: "wrap" }}>
             <a href="#tracks" style={{
