@@ -28,7 +28,7 @@ function C_Label({ n, title, sub }) {
 }
 
 function C_TopBar() {
-  const { step, sub } = useBpmClock(160);
+  const { step } = useBpmClock(160);
   return (
     <div style={{
       position: "fixed",
@@ -58,15 +58,11 @@ function C_TopBar() {
                 : (isDownbeat ? "rgba(228,224,214,0.28)" : "rgba(228,224,214,0.08)"),
               transform: isActive && isDownbeat ? "translateY(-3px)" : "translateY(0)",
               transformOrigin: "center bottom",
-              transition: "background 60ms linear, transform 80ms linear, height 80ms linear",
             }} />
           );
         })}
       </div>
-      <span style={{ textAlign: "right", color: C_PAL.dim }}>
-        POLISHED FLAME
-        <span style={{ opacity: 0.3, marginLeft: 8 }}>{sub.toFixed(2)}</span>
-      </span>
+      <span style={{ textAlign: "right", color: C_PAL.dim }}>POLISHED FLAME</span>
     </div>
   );
 }
