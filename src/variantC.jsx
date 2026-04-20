@@ -29,7 +29,6 @@ function C_Label({ n, title, sub }) {
 
 function C_TopBar() {
   const { step, sub } = useBpmClock(160);
-  const downbeatPulse = step % 4 === 0 ? 1 - sub : 0;
   return (
     <div style={{
       position: "sticky", top: 0, zIndex: 10,
@@ -45,22 +44,17 @@ function C_TopBar() {
         {Array.from({ length: 16 }, (_, i) => {
           const isActive = i === step;
           const isDownbeat = i % 4 === 0;
-          const glowStrength = isActive && isDownbeat ? downbeatPulse : 0;
           return (
             <span key={i} style={{
-              width: isActive && isDownbeat ? 8 : 6,
-              height: isActive && isDownbeat ? 8 : 6,
+              width: 6,
+              height: isActive && isDownbeat ? 12 : 6,
               borderRadius: 999,
               background: isActive
                 ? C_PAL.accent
                 : (isDownbeat ? "rgba(228,224,214,0.28)" : "rgba(228,224,214,0.08)"),
-              boxShadow: isActive && isDownbeat
-                ? `0 0 ${10 + glowStrength * 12}px rgba(194,74,31,${0.35 + glowStrength * 0.45})`
-                : "none",
-              transform: isActive && isDownbeat
-                ? `scale(${1 + glowStrength * 0.35})`
-                : (isActive ? "scale(1.08)" : "scale(1)"),
-              transition: "background 60ms linear, box-shadow 80ms linear, transform 80ms linear, width 80ms linear, height 80ms linear",
+              transform: isActive && isDownbeat ? "translateY(-3px)" : "translateY(0)",
+              transformOrigin: "center bottom",
+              transition: "background 60ms linear, transform 80ms linear, height 80ms linear",
             }} />
           );
         })}
