@@ -155,11 +155,23 @@ function Waveform({ seed = 1, color = "currentColor", progress = 0, height = 40 
   );
 }
 
+function formatTime(seconds) {
+  if (!Number.isFinite(seconds) || seconds < 0) return "--:--";
+  const totalSeconds = Math.round(seconds);
+  const mins = Math.floor(totalSeconds / 60);
+  const secs = totalSeconds % 60;
+  return `${mins}:${String(secs).padStart(2, "0")}`;
+}
+
 // --- Real audio player coordinator: keeps one preview playing at a time ---
 function useAudioPlayer(trackCount) {
   const refs = React.useRef([]);
   const [active, setActive] = React.useState(null);
   const [progresses, setProgresses] = React.useState(() => Array(trackCount).fill(0));
+  const [times, setTimes] = React.useState(() => Array.from({ length: trackCount }, () => ({
+    current: 0,
+    duration: NaN,
+  })));
 
   React.useEffect(() => {
     refs.current = refs.current.slice(0, trackCount);
@@ -167,7 +179,22 @@ function useAudioPlayer(trackCount) {
       if (prev.length === trackCount) return prev;
       return Array.from({ length: trackCount }, (_, i) => prev[i] || 0);
     });
+    setTimes((prev) => {
+      if (prev.length === trackCount) return prev;
+      return Array.from({ length: trackCount }, (_, i) => prev[i] || { current: 0, duration: NaN });
+    });
   }, [trackCount]);
+
+  const updateTimeState = (index, patch) => {
+    setTimes((prev) => {
+      const current = prev[index] || { current: 0, duration: NaN };
+      const nextEntry = { ...current, ...patch };
+      if (current.current === nextEntry.current && current.duration === nextEntry.duration) return prev;
+      const next = [...prev];
+      next[index] = nextEntry;
+      return next;
+    });
+  };
 
   const bind = (index) => ({
     ref: (node) => {
@@ -189,6 +216,10 @@ function useAudioPlayer(trackCount) {
         next[index] = 0;
         return next;
       });
+      updateTimeState(index, { current: 0 });
+    },
+    onLoadedMetadata: (e) => {
+      updateTimeState(index, { duration: e.currentTarget.duration });
     },
     onTimeUpdate: (e) => {
       const audio = e.currentTarget;
@@ -198,6 +229,10 @@ function useAudioPlayer(trackCount) {
         const next = [...prev];
         next[index] = nextProgress;
         return next;
+      });
+      updateTimeState(index, {
+        current: audio.currentTime,
+        duration: audio.duration,
       });
     },
   });
@@ -218,6 +253,7 @@ function useAudioPlayer(trackCount) {
   return {
     active,
     progresses,
+    times,
     toggle,
     bind,
   };
@@ -302,6 +338,7 @@ Object.assign(window, {
   EP,
   Icon,
   Waveform,
+  formatTime,
   useAudioPlayer,
   useBpmClock,
   JacketPlaceholder,

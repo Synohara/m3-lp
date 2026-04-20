@@ -140,7 +140,7 @@ function C_Hero() {
 }
 
 function C_Tracks() {
-  const { active, progresses, toggle, bind } = useAudioPlayer(EP.tracks.length);
+  const { active, progresses, times, toggle, bind } = useAudioPlayer(EP.tracks.length);
   return (
     <section id="tracks" style={{ padding: "96px 40px", borderBottom: `1px solid ${C_PAL.line}` }}>
       <C_Label n="01" title="Tracks" />
@@ -163,6 +163,8 @@ function C_Tracks() {
 
       {EP.tracks.map((t, i) => {
         const isActive = active === i;
+        const durationLabel = formatTime(times[i]?.duration);
+        const currentLabel = isActive ? formatTime(times[i]?.current) : durationLabel;
         return (
           <div key={i} style={{
             display: "grid",
@@ -183,16 +185,41 @@ function C_Tracks() {
               letterSpacing: 0, fontWeight: 500,
             }}>
               {t.title}
-              <div style={{ marginTop: 14 }}>
-                <audio
-                  {...bind(i)}
-                  aria-label={t.audioLabel}
-                  controls
-                  preload="none"
-                  src={t.audioSrc}
-                  style={{ width: "100%" }}
-                />
-              </div>
+              <button
+                onClick={() => toggle(i)}
+                style={{
+                  marginTop: 14,
+                  width: "100%",
+                  display: "grid",
+                  gridTemplateColumns: "28px 1fr auto",
+                  alignItems: "center",
+                  gap: 14,
+                  padding: "10px 12px",
+                  background: isActive ? "rgba(228,224,214,0.05)" : "rgba(228,224,214,0.02)",
+                  border: `1px solid ${isActive ? "rgba(228,224,214,0.26)" : C_PAL.line}`,
+                  color: "inherit",
+                  cursor: "pointer",
+                  textAlign: "left",
+                  font: "inherit",
+                }}
+              >
+                <span style={{ color: isActive ? C_PAL.accent : C_PAL.dim, display: "inline-flex", justifyContent: "center" }}>
+                  {isActive ? <Icon.pause size={11}/> : <Icon.play size={11}/>}
+                </span>
+                <span style={{ color: isActive ? C_PAL.ink : C_PAL.dim, fontSize: 11, letterSpacing: 1.5 }}>
+                  {isActive ? "PLAYING" : "PREVIEW"}
+                </span>
+                <span style={{ color: isActive ? C_PAL.accent : C_PAL.sub, fontSize: 11, letterSpacing: 1.5 }}>
+                  {currentLabel}
+                </span>
+              </button>
+              <audio
+                {...bind(i)}
+                aria-label={t.audioLabel}
+                preload="metadata"
+                src={t.audioSrc}
+                style={{ display: "none" }}
+              />
             </div>
             <div style={{ color: isActive ? C_PAL.accent : C_PAL.ink, opacity: isActive ? 1 : 0.6 }}>
               <Waveform seed={i + 5} color="currentColor" progress={progresses[i] || 0} height={22} />
@@ -210,7 +237,7 @@ function C_Tracks() {
                   padding: 0,
                 }}
               >
-                {t.len}
+                {durationLabel}
               </button>
             </span>
           </div>
