@@ -43,7 +43,7 @@ function B_Hero() {
       {/* Side rail */}
       <div style={{ borderRight: `1px solid ${B_PAL.line}`, padding: "24px 0 24px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-between" }}>
         <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 10, letterSpacing: 3, color: B_PAL.dim, writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
-          MAKOTYO — POLISHED FLAME — EP / 2026
+          MAKOTYO — POLISHED FLAME
         </span>
         <div style={{ width: 1, flex: 1, background: B_PAL.line, margin: "20px 0" }} />
         <span style={{

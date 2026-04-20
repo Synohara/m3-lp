@@ -273,7 +273,7 @@ function JacketPlaceholder({ label = "", palette = "dark" }) {
       </g>
       <text x="160" y="204" fill={fg} fontFamily="JetBrains Mono, monospace" fontSize="10" textAnchor="middle" letterSpacing="2">POLISHED</text>
       <text x="240" y="204" fill={fg} fontFamily="JetBrains Mono, monospace" fontSize="11" textAnchor="middle" letterSpacing="2">FLAME</text>
-      <text x="20" y="30" fill={fg} fontFamily="JetBrains Mono, monospace" fontSize="10" opacity="0.55" letterSpacing="1.5">makotyo — EP / 2026</text>
+      <text x="20" y="30" fill={fg} fontFamily="JetBrains Mono, monospace" fontSize="10" opacity="0.55" letterSpacing="1.5">makotyo</text>
       {label ? (
         <text x="380" y="386" fill={fg} fontFamily="JetBrains Mono, monospace" fontSize="9" textAnchor="end" opacity="0.45" letterSpacing="1.5">[ {label} ]</text>
       ) : null}

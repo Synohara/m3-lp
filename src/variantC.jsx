@@ -114,9 +114,6 @@ function C_Hero() {
           <div style={{ width: "100%", aspectRatio: "1", boxShadow: "0 40px 80px rgba(0,0,0,0.55)" }}>
             <JacketPlaceholder palette="dark" />
           </div>
-          <div style={{ position: "absolute", top: -8, right: -8, fontSize: 10, letterSpacing: 2, color: C_PAL.dim }}>
-            SIDE A
-          </div>
         </div>
       </div>
     </section>
