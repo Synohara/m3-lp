@@ -99,7 +99,7 @@ function B_Hero() {
 }
 
 function B_Index() {
-  const { active, progress, toggle } = useFakePlayer(28);
+  const { active, progresses, toggle, bind } = useAudioPlayer(EP.tracks.length);
   return (
     <section id="tracks" style={{ padding: "96px 64px", borderBottom: `1px solid ${B_PAL.line}` }}>
       <div style={{ display: "grid", gridTemplateColumns: "180px 1fr", gap: 64 }}>
@@ -112,10 +112,9 @@ function B_Index() {
           {EP.tracks.map((t, i) => {
             const isActive = active === i;
             return (
-              <div key={i} onClick={() => toggle(i)} style={{
+              <div key={i} style={{
                 padding: "32px 0",
                 borderTop: i === 0 ? `1px solid ${B_PAL.ink}` : `1px solid ${B_PAL.line}`,
-                cursor: "pointer",
               }}>
                 <div style={{ display: "grid", gridTemplateColumns: "64px 1fr 100px", alignItems: "baseline", gap: 24 }}>
                   <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 11, color: B_PAL.dim, letterSpacing: 2 }}>№ {t.n}</div>
@@ -132,11 +131,34 @@ function B_Index() {
                       {t.sample}
                     </div>
                     <div style={{ marginTop: 14, color: isActive ? B_PAL.accent : B_PAL.ink, opacity: isActive ? 1 : 0.7 }}>
-                      <Waveform seed={i + 2} color="currentColor" progress={isActive ? progress : 0} height={32} />
+                      <Waveform seed={i + 2} color="currentColor" progress={progresses[i] || 0} height={32} />
+                    </div>
+                    <div style={{ marginTop: 14 }}>
+                      <audio
+                        {...bind(i)}
+                        aria-label={t.audioLabel}
+                        controls
+                        preload="none"
+                        src={t.audioSrc}
+                        style={{ width: "100%" }}
+                      />
                     </div>
                   </div>
                   <div style={{ textAlign: "right", fontFamily: "JetBrains Mono, monospace", fontSize: 12, color: B_PAL.dim, letterSpacing: 2 }}>
-                    {t.len}
+                    <button
+                      onClick={() => toggle(i)}
+                      style={{
+                        background: "transparent",
+                        border: "none",
+                        color: isActive ? B_PAL.accent : B_PAL.dim,
+                        cursor: "pointer",
+                        font: "inherit",
+                        letterSpacing: "inherit",
+                        padding: 0,
+                      }}
+                    >
+                      {t.len}
+                    </button>
                   </div>
                 </div>
               </div>

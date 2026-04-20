@@ -124,10 +124,10 @@ function C_Hero() {
 }
 
 function C_Tracks() {
-  const { active, progress, toggle } = useFakePlayer(28);
+  const { active, progresses, toggle, bind } = useAudioPlayer(EP.tracks.length);
   return (
     <section id="tracks" style={{ padding: "96px 40px", borderBottom: `1px solid ${C_PAL.line}` }}>
-      <C_Label n="01" title="Tracks" sub="クリックで試聴" />
+      <C_Label n="01" title="Tracks" sub="埋め込み試聴" />
 
       <div style={{
         display: "grid",
@@ -148,14 +148,13 @@ function C_Tracks() {
       {EP.tracks.map((t, i) => {
         const isActive = active === i;
         return (
-          <div key={i} onClick={() => toggle(i)} style={{
+          <div key={i} style={{
             display: "grid",
             gridTemplateColumns: "56px 64px 1fr 1.4fr 90px",
             alignItems: "center",
             gap: 20,
             padding: "26px 0",
             borderBottom: `1px solid ${C_PAL.line}`,
-            cursor: "pointer",
             background: isActive ? "rgba(228,224,214,0.03)" : "transparent",
             transition: "background 200ms",
           }}>
@@ -163,17 +162,40 @@ function C_Tracks() {
               {isActive ? <Icon.pause size={12}/> : <Icon.play size={12}/>}
             </span>
             <span style={{ fontSize: 11, color: C_PAL.dim, letterSpacing: 2 }}>{t.n}</span>
-            <span style={{
+            <div style={{
               fontSize: 26, color: C_PAL.ink,
               letterSpacing: 0, fontWeight: 500,
             }}>
               {t.title}
-            </span>
+              <div style={{ marginTop: 14 }}>
+                <audio
+                  {...bind(i)}
+                  aria-label={t.audioLabel}
+                  controls
+                  preload="none"
+                  src={t.audioSrc}
+                  style={{ width: "100%" }}
+                />
+              </div>
+            </div>
             <div style={{ color: isActive ? C_PAL.accent : C_PAL.ink, opacity: isActive ? 1 : 0.6 }}>
-              <Waveform seed={i + 5} color="currentColor" progress={isActive ? progress : 0} height={22} />
+              <Waveform seed={i + 5} color="currentColor" progress={progresses[i] || 0} height={22} />
             </div>
             <span style={{ textAlign: "right", fontSize: 12, color: isActive ? C_PAL.accent : C_PAL.ink, letterSpacing: 1.5 }}>
-              {t.len}
+              <button
+                onClick={() => toggle(i)}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  color: "inherit",
+                  cursor: "pointer",
+                  font: "inherit",
+                  letterSpacing: "inherit",
+                  padding: 0,
+                }}
+              >
+                {t.len}
+              </button>
             </span>
           </div>
         );

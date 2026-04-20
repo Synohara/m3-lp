@@ -148,7 +148,7 @@ function A_Hero() {
 }
 
 function A_TrackList() {
-  const { active, progress, toggle } = useFakePlayer(28);
+  const { active, progresses, toggle, bind } = useAudioPlayer(EP.tracks.length);
   return (
     <section id="tracks" style={{ padding: "96px 40px", borderBottom: `1px solid ${A_PAL.line}` }}>
       <Labelled n="01" label="TRACKS" style={{ color: A_PAL.ink, marginBottom: 40 }} />
@@ -157,41 +157,64 @@ function A_TrackList() {
           const isActive = active === i;
           return (
             <div key={i}
-              onClick={() => toggle(i)}
               style={{
                 display: "grid",
-                gridTemplateColumns: "72px 1.2fr 2fr 120px 64px",
+                gridTemplateColumns: "72px 1.2fr 2fr 120px 96px",
                 alignItems: "center",
                 gap: 24,
                 padding: "22px 8px",
                 borderTop: `1px solid ${A_PAL.line}`,
-                cursor: "pointer",
                 background: isActive ? "rgba(236,231,220,0.04)" : "transparent",
                 transition: "background 200ms",
               }}>
-              <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 12, color: A_PAL.dim, letterSpacing: 2 }}>
+              <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 12, color: A_PAL.dim, letterSpacing: 2, alignSelf: "start", paddingTop: 10 }}>
                 {t.n}
               </span>
-              <span style={{
-                fontFamily: "'Noto Serif JP', serif",
-                fontWeight: 600,
-                fontSize: 28,
-                color: A_PAL.ink,
-                letterSpacing: "-0.01em",
-              }}>
-                {t.title}
-              </span>
-              <span style={{ color: A_PAL.dim, fontFamily: "JetBrains Mono, monospace", fontSize: 11, letterSpacing: 1.5 }}>
+              <div>
+                <span style={{
+                  fontFamily: "'Noto Serif JP', serif",
+                  fontWeight: 600,
+                  fontSize: 28,
+                  color: A_PAL.ink,
+                  letterSpacing: "-0.01em",
+                }}>
+                  {t.title}
+                </span>
+                <div style={{ marginTop: 14 }}>
+                  <audio
+                    {...bind(i)}
+                    aria-label={t.audioLabel}
+                    controls
+                    preload="none"
+                    src={t.audioSrc}
+                    style={{ width: "100%" }}
+                  />
+                </div>
+              </div>
+              <span style={{ color: A_PAL.dim, fontFamily: "JetBrains Mono, monospace", fontSize: 11, letterSpacing: 1.5, alignSelf: "start", paddingTop: 12 }}>
                 {t.sample}
               </span>
-              <div style={{ color: isActive ? A_PAL.accent : A_PAL.dim }}>
-                <Waveform seed={i + 3} color="currentColor" progress={isActive ? progress : 0} height={28} />
+              <div style={{ color: isActive ? A_PAL.accent : A_PAL.dim, alignSelf: "start", paddingTop: 12 }}>
+                <Waveform seed={i + 3} color="currentColor" progress={progresses[i] || 0} height={28} />
               </div>
-              <span style={{ textAlign: "right", fontFamily: "JetBrains Mono, monospace", fontSize: 11, color: A_PAL.dim }}>
-                <span style={{ display: "inline-flex", alignItems: "center", gap: 8, color: isActive ? A_PAL.accent : A_PAL.ink }}>
+              <span style={{ textAlign: "right", fontFamily: "JetBrains Mono, monospace", fontSize: 11, color: A_PAL.dim, alignSelf: "start", paddingTop: 10 }}>
+                <button
+                  onClick={() => toggle(i)}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    color: isActive ? A_PAL.accent : A_PAL.ink,
+                    background: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                    font: "inherit",
+                    padding: 0,
+                  }}
+                >
                   {isActive ? <Icon.pause size={10}/> : <Icon.play size={10}/>}
                   {t.len}
-                </span>
+                </button>
               </span>
             </div>
           );

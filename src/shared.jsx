@@ -15,10 +15,42 @@ const EP = {
     "A four-track EP weaving classical samples into the 160 BPM lattice of juke & footwork. Stillness meeting impulse.",
   influences: ["DJ Rashad", "Traxman", "Teklife", "classical phrasing"],
   tracks: [
-    { n: "01", title: "Pootwork",    len: "3:48", bpm: 160, sample: "sampling: Chopin — Nocturne op.9" },
-    { n: "02", title: "Scri",        len: "4:12", bpm: 160, sample: "sampling: Ravel — Pavane" },
-    { n: "03", title: "Jureams",     len: "4:37", bpm: 160, sample: "sampling: Debussy — Clair de Lune" },
-    { n: "04", title: "Salaam Foot", len: "5:02", bpm: 160, sample: "sampling: Bach — Partita no.2" },
+    {
+      n: "01",
+      title: "Pootwork",
+      len: "3:48",
+      bpm: 160,
+      sample: "sampling: Chopin — Nocturne op.9",
+      audioPath: "/Users/shinoharamakoto/Downloads/pootwork_20260112_master.wav",
+      audioLabel: "Pootwork preview",
+    },
+    {
+      n: "02",
+      title: "Scri",
+      len: "4:12",
+      bpm: 160,
+      sample: "sampling: Ravel — Pavane",
+      audioPath: "/Users/shinoharamakoto/Downloads/scriabin_foot.mp3",
+      audioLabel: "Scri preview",
+    },
+    {
+      n: "03",
+      title: "Jureams",
+      len: "4:37",
+      bpm: 160,
+      sample: "sampling: Debussy — Clair de Lune",
+      audioPath: "/Users/shinoharamakoto/Downloads/Jureams.mp3",
+      audioLabel: "Jureams preview",
+    },
+    {
+      n: "04",
+      title: "Salaam Foot",
+      len: "5:02",
+      bpm: 160,
+      sample: "sampling: Bach — Partita no.2",
+      audioPath: "/Users/shinoharamakoto/Downloads/Salaam Footwork.mp3",
+      audioLabel: "Salaam Foot preview",
+    },
   ],
   online: {
     label: "M3 Online Booth",
@@ -59,6 +91,14 @@ const EP = {
     },
   ],
 };
+
+function toFileUrl(path) {
+  return encodeURI(`file://${path}`);
+}
+
+EP.tracks.forEach((track) => {
+  track.audioSrc = toFileUrl(track.audioPath);
+});
 
 // --- Inline icon set (geometric) ---
 const Icon = {
@@ -114,30 +154,72 @@ function Waveform({ seed = 1, color = "currentColor", progress = 0, height = 40 
   );
 }
 
-// --- Fake audio player: only one "playing" at a time ---
-function useFakePlayer(loopSec = 28) {
+// --- Real audio player coordinator: keeps one preview playing at a time ---
+function useAudioPlayer(trackCount) {
+  const refs = React.useRef([]);
   const [active, setActive] = React.useState(null);
-  const [progress, setProgress] = React.useState(0);
+  const [progresses, setProgresses] = React.useState(() => Array(trackCount).fill(0));
+
   React.useEffect(() => {
-    if (active === null) return;
-    let raf, last = performance.now();
-    const tick = (now) => {
-      const dt = (now - last) / 1000;
-      last = now;
-      setProgress((p) => {
-        const np = p + dt / loopSec;
-        return np >= 1 ? 0 : np;
+    refs.current = refs.current.slice(0, trackCount);
+    setProgresses((prev) => {
+      if (prev.length === trackCount) return prev;
+      return Array.from({ length: trackCount }, (_, i) => prev[i] || 0);
+    });
+  }, [trackCount]);
+
+  const bind = (index) => ({
+    ref: (node) => {
+      refs.current[index] = node;
+    },
+    onPlay: () => {
+      refs.current.forEach((audio, i) => {
+        if (i !== index && audio && !audio.paused) audio.pause();
       });
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [active, loopSec]);
-  const toggle = (i) => {
-    if (active === i) setActive(null);
-    else { setActive(i); setProgress(0); }
+      setActive(index);
+    },
+    onPause: () => {
+      setActive((prev) => (prev === index ? null : prev));
+    },
+    onEnded: () => {
+      setActive((prev) => (prev === index ? null : prev));
+      setProgresses((prev) => {
+        const next = [...prev];
+        next[index] = 0;
+        return next;
+      });
+    },
+    onTimeUpdate: (e) => {
+      const audio = e.currentTarget;
+      const nextProgress = audio.duration ? audio.currentTime / audio.duration : 0;
+      setProgresses((prev) => {
+        if (Math.abs((prev[index] || 0) - nextProgress) < 0.01) return prev;
+        const next = [...prev];
+        next[index] = nextProgress;
+        return next;
+      });
+    },
+  });
+
+  const toggle = (index) => {
+    const audio = refs.current[index];
+    if (!audio) return;
+    if (audio.paused) {
+      const playResult = audio.play();
+      if (playResult && typeof playResult.catch === "function") {
+        playResult.catch(() => {});
+      }
+      return;
+    }
+    audio.pause();
   };
-  return { active, progress, toggle };
+
+  return {
+    active,
+    progresses,
+    toggle,
+    bind,
+  };
 }
 
 // --- 160 BPM pulse (global clock for Juke time) ---
@@ -160,8 +242,8 @@ function useBpmClock(bpm = 160) {
   return { t, beat, step, sub };
 }
 
-// --- Jacket placeholder (monochrome grid-noise, labelled as placeholder) ---
-function JacketPlaceholder({ label = "jacket art — replace", palette = "dark" }) {
+// --- Jacket art (monochrome grid-noise cover) ---
+function JacketPlaceholder({ label = "", palette = "dark" }) {
   const bg = palette === "light" ? "#efece5" : "#16130f";
   const fg = palette === "light" ? "#16130f" : "#efece5";
   const dots = [];
@@ -191,7 +273,9 @@ function JacketPlaceholder({ label = "jacket art — replace", palette = "dark" 
       <text x="160" y="204" fill={fg} fontFamily="JetBrains Mono, monospace" fontSize="10" textAnchor="middle" letterSpacing="2">POLISHED</text>
       <text x="240" y="204" fill={fg} fontFamily="JetBrains Mono, monospace" fontSize="11" textAnchor="middle" letterSpacing="2">FLAME</text>
       <text x="20" y="30" fill={fg} fontFamily="JetBrains Mono, monospace" fontSize="10" opacity="0.55" letterSpacing="1.5">makotyo — EP / 2026</text>
-      <text x="380" y="386" fill={fg} fontFamily="JetBrains Mono, monospace" fontSize="9" textAnchor="end" opacity="0.45" letterSpacing="1.5">[ {label} ]</text>
+      {label ? (
+        <text x="380" y="386" fill={fg} fontFamily="JetBrains Mono, monospace" fontSize="9" textAnchor="end" opacity="0.45" letterSpacing="1.5">[ {label} ]</text>
+      ) : null}
     </svg>
   );
 }
@@ -216,7 +300,7 @@ Object.assign(window, {
   EP,
   Icon,
   Waveform,
-  useFakePlayer,
+  useAudioPlayer,
   useBpmClock,
   JacketPlaceholder,
   Labelled,
