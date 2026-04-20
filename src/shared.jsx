@@ -21,7 +21,7 @@ const EP = {
       len: "3:48",
       bpm: 160,
       sample: "sampling: Chopin — Nocturne op.9",
-      audioPath: "/Users/shinoharamakoto/Downloads/pootwork_20260112_master.wav",
+      audioFile: "pootwork_20260112_master.wav",
       audioLabel: "Pootwork preview",
     },
     {
@@ -30,7 +30,7 @@ const EP = {
       len: "4:12",
       bpm: 160,
       sample: "sampling: Ravel — Pavane",
-      audioPath: "/Users/shinoharamakoto/Downloads/scriabin_foot.mp3",
+      audioFile: "scriabin_foot.mp3",
       audioLabel: "Scri preview",
     },
     {
@@ -39,7 +39,7 @@ const EP = {
       len: "4:37",
       bpm: 160,
       sample: "sampling: Debussy — Clair de Lune",
-      audioPath: "/Users/shinoharamakoto/Downloads/Jureams.mp3",
+      audioFile: "Jureams.mp3",
       audioLabel: "Jureams preview",
     },
     {
@@ -48,7 +48,7 @@ const EP = {
       len: "5:02",
       bpm: 160,
       sample: "sampling: Bach — Partita no.2",
-      audioPath: "/Users/shinoharamakoto/Downloads/Salaam Footwork.mp3",
+      audioFile: "Salaam Footwork.mp3",
       audioLabel: "Salaam Foot preview",
     },
   ],
@@ -92,12 +92,12 @@ const EP = {
   ],
 };
 
-function toFileUrl(path) {
-  return encodeURI(`file://${path}`);
+function toAudioUrl(filename) {
+  return encodeURI(`./public/audio/${filename}`);
 }
 
 EP.tracks.forEach((track) => {
-  track.audioSrc = toFileUrl(track.audioPath);
+  track.audioSrc = toAudioUrl(track.audioFile);
 });
 
 // --- Inline icon set (geometric) ---
