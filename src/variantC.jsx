@@ -170,8 +170,13 @@ function C_Tracks() {
             background: isActive ? "rgba(228,224,214,0.03)" : "transparent",
             transition: "background 200ms",
           }}>
-            <span style={{ color: isActive ? C_PAL.accent : C_PAL.dim, display: "inline-flex", justifyContent: "center" }}>
-              {isActive ? <Icon.pause size={12}/> : <Icon.play size={12}/>}
+            <span style={{ display: "inline-flex", justifyContent: "center" }}>
+              <span style={{
+                width: isActive ? 18 : 10,
+                height: 1,
+                background: isActive ? C_PAL.accent : C_PAL.line,
+                transition: "width 160ms ease, background 160ms ease",
+              }} />
             </span>
             <span style={{ fontSize: 11, color: C_PAL.dim, letterSpacing: 2 }}>{t.n}</span>
             <div style={{
