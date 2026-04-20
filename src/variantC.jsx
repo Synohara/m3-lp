@@ -303,12 +303,19 @@ function C_Buy() {
             {EP.online.label}<br/>
             <span style={{ color: C_PAL.accent }}>{EP.online.genre}</span>
           </div>
+          <div style={{
+            marginTop: 18,
+            fontSize: 10,
+            letterSpacing: 2,
+            color: C_PAL.sub,
+          }}>
+            {EP.online.tags.join(" / ")}
+          </div>
           <p style={{
-            marginTop: 28, maxWidth: 440,
+            marginTop: 20, maxWidth: 440,
             fontSize: 13, lineHeight: 2, color: C_PAL.dim,
             fontFamily: "'Noto Sans JP', sans-serif",
           }}>
-            {EP.online.tags.join(" / ")}<br/>
             {EP.online.note}
           </p>
         </div>
