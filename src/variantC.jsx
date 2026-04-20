@@ -49,7 +49,7 @@ function C_TopBar() {
         ))}
       </div>
       <span style={{ textAlign: "right", color: C_PAL.dim }}>
-        160 BPM · POLISHED FLAME EP · {EP.year}
+        POLISHED FLAME
         <span style={{ opacity: 0.3, marginLeft: 8 }}>{sub.toFixed(2)}</span>
       </span>
     </div>
@@ -62,7 +62,7 @@ function C_Hero() {
       <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: 72, alignItems: "center" }}>
         <div>
           <div style={{ fontSize: 11, letterSpacing: 3, color: C_PAL.dim, marginBottom: 32 }}>
-            MKT-001 ／ 4 TRACKS ／ JUKE · FOOTWORK ／ 160 BPM
+            MKT-001 ／ 4 TRACKS
           </div>
           <h1 style={{
             margin: 0,

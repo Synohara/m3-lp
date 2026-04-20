@@ -60,7 +60,6 @@ function A_Hero() {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", fontFamily: "JetBrains Mono, monospace", fontSize: 11, letterSpacing: 2, color: A_PAL.dim }}>
         <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
           <span style={{ color: A_PAL.ink, letterSpacing: 3 }}>MAKOTYO</span>
-          <span>— EP / {EP.year}</span>
         </div>
         <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
           <span>160 BPM</span>
@@ -112,12 +111,6 @@ function A_Hero() {
             opacity: 0.85,
           }}>
             {EP.taglineJa}
-            {EP.tagline ? (
-              <>
-                <br/>
-                <span style={{ color: A_PAL.dim, fontSize: 13, letterSpacing: 0.5 }}>{EP.tagline}</span>
-              </>
-            ) : null}
           </p>
           <div style={{ marginTop: 36, display: "flex", gap: 12, flexWrap: "wrap" }}>
             <a href="#tracks" style={{
