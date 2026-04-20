@@ -67,7 +67,7 @@ const EP = {
   profile: {
     short: "東京都在住。Breakbeats / Jazz / Footwork を軸に制作・活動しています。",
     longJa:
-      "東京都在住。Breakbeats / Jazz / Footwork を軸に制作・活動しています。M3では [藍-22] よっこらレコーズ として参加し、ジャンルは A03（音楽一般：テクノ・クラブ）。今回は新作1作品を頒布します。ぜひお立ち寄りください。",
+      "東京都在住。Breakbeats / Jazz / Footwork を軸に制作・活動しています。M3では [藍-22] よっこらレコーズ として参加し、ジャンルは A03（音楽一般：テクノ・クラブ）。今回は新作1作品を頒布します。ゆっくりしていってね！",
     facts: [
       ["booth",    "[藍-22] よっこらレコーズ"],
       ["genre",    "A03 / Techno · Club"],
