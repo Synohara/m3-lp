@@ -1,0 +1,223 @@
+// Shared data + primitives for all three variants
+const EP = {
+  artist: "makotyo",
+  title: "Polished Flame",
+  titleSub: "",
+  bpm: 160,
+  year: "2026",
+  format: "4 tracks / EP",
+  price: "name your price",
+  tagline: "Juke / Footwork — 160 BPM, classical samples, chopped.",
+  taglineJa: "160の世界で、クラシックとサンプリングをビートに落とす。",
+  description:
+    "Chicago産のJuke / Footworkを軸に、クラシック音楽のフレーズや呼吸をサンプリングし、160BPMの網目に縫い込んだ4曲入りEP。静謐と衝動のあいだ。",
+  descriptionEn:
+    "A four-track EP weaving classical samples into the 160 BPM lattice of juke & footwork. Stillness meeting impulse.",
+  influences: ["DJ Rashad", "Traxman", "Teklife", "classical phrasing"],
+  tracks: [
+    { n: "01", title: "Pootwork",    len: "3:48", bpm: 160, sample: "sampling: Chopin — Nocturne op.9" },
+    { n: "02", title: "Scri",        len: "4:12", bpm: 160, sample: "sampling: Ravel — Pavane" },
+    { n: "03", title: "Jureams",     len: "4:37", bpm: 160, sample: "sampling: Debussy — Clair de Lune" },
+    { n: "04", title: "Salaam Foot", len: "5:02", bpm: 160, sample: "sampling: Bach — Partita no.2" },
+  ],
+  online: {
+    label: "M3 Online Booth",
+    note: "今回はネット出展。下記リンクから試聴・購入できます。",
+  },
+  links: [
+    { label: "Bandcamp",    url: "#", primary: true,  note: "EP 試聴 / 購入 / DL" },
+    { label: "SoundCloud",  url: "#", primary: false, note: "crossfade demo" },
+    { label: "YouTube",     url: "#", primary: false, note: "music video" },
+    { label: "X / Twitter", url: "#", primary: false, note: "@makotyo" },
+  ],
+  profile: {
+    short: "Tokyo-based producer. Juke/Footworkを軸に、クラシックや民族音楽の断片を160BPMの骨格に織り込む。",
+    longJa:
+      "makotyo はJuke / Footworkを出発点に、クラシック音楽やフィールドレコーディングなど異質な素材を160BPMへ織り込むプロデューサー。DJ Rashad、Traxmanに衝撃を受けて制作を開始。スネアの点描と、残響する和声。静かな踊り場を作っている。",
+    facts: [
+      ["based",    "Tokyo, JP"],
+      ["since",    "2022"],
+      ["tools",    "Ableton / MPC / Field rec."],
+      ["roots",    "Juke · Footwork · Classical"],
+    ],
+  },
+  liner: [
+    {
+      n: "i.",
+      head: "160の世界",
+      body: "Juke / Footworkは160BPMの格子の上に、16分のスネアを撒く音楽だ。速さよりも、間(あいだ)の扱いが効く。",
+    },
+    {
+      n: "ii.",
+      head: "クラシックを食う",
+      body: "ショパンやドビュッシーのフレーズを、呼吸ごと切り取って貼る。原曲の静けさが、キックの真下で別の時間を作る。",
+    },
+    {
+      n: "iii.",
+      head: "Polished Flame",
+      body: "四曲は研ぎ澄まされた炎のスケッチ。それぞれの曲はひとつの灯。Footworkの足運びを、音の側から描く試み。",
+    },
+  ],
+};
+
+// --- Inline icon set (geometric) ---
+const Icon = {
+  play: (p) => (
+    <svg viewBox="0 0 24 24" width={p.size||14} height={p.size||14} fill="currentColor" aria-hidden>
+      <path d="M6 4l14 8-14 8z" />
+    </svg>
+  ),
+  pause: (p) => (
+    <svg viewBox="0 0 24 24" width={p.size||14} height={p.size||14} fill="currentColor" aria-hidden>
+      <rect x="6" y="4" width="4" height="16" />
+      <rect x="14" y="4" width="4" height="16" />
+    </svg>
+  ),
+  arrow: (p) => (
+    <svg viewBox="0 0 24 24" width={p.size||14} height={p.size||14} fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+      <path d="M5 12h14M13 5l7 7-7 7" />
+    </svg>
+  ),
+  ext: (p) => (
+    <svg viewBox="0 0 24 24" width={p.size||12} height={p.size||12} fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+      <path d="M7 17L17 7M9 7h8v8" />
+    </svg>
+  ),
+};
+
+// --- Waveform (deterministic per seed) ---
+function Waveform({ seed = 1, color = "currentColor", progress = 0, height = 40 }) {
+  const n = 96;
+  const bars = [];
+  for (let i = 0; i < n; i++) {
+    const t = (i + 1) * (seed * 0.7 + 3);
+    const h =
+      0.25 +
+      0.35 * Math.abs(Math.sin(t * 0.41 + seed)) +
+      0.4  * Math.abs(Math.sin(t * 0.11 + seed * 1.3));
+    const played = i / n < progress;
+    bars.push(
+      <rect key={i}
+        x={i * 3}
+        y={(height - h * height) / 2}
+        width="1.5"
+        height={Math.max(1, h * height)}
+        fill={color}
+        opacity={played ? 1 : 0.28}
+      />
+    );
+  }
+  return (
+    <svg viewBox={`0 0 ${n * 3} ${height}`} preserveAspectRatio="none" style={{ width: "100%", height, display: "block" }}>
+      {bars}
+    </svg>
+  );
+}
+
+// --- Fake audio player: only one "playing" at a time ---
+function useFakePlayer(loopSec = 28) {
+  const [active, setActive] = React.useState(null);
+  const [progress, setProgress] = React.useState(0);
+  React.useEffect(() => {
+    if (active === null) return;
+    let raf, last = performance.now();
+    const tick = (now) => {
+      const dt = (now - last) / 1000;
+      last = now;
+      setProgress((p) => {
+        const np = p + dt / loopSec;
+        return np >= 1 ? 0 : np;
+      });
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [active, loopSec]);
+  const toggle = (i) => {
+    if (active === i) setActive(null);
+    else { setActive(i); setProgress(0); }
+  };
+  return { active, progress, toggle };
+}
+
+// --- 160 BPM pulse (global clock for Juke time) ---
+// Returns beat index (monotonic), step (0..15 within bar), sub (0..1 within beat).
+function useBpmClock(bpm = 160) {
+  const [t, setT] = React.useState(0);
+  React.useEffect(() => {
+    let raf, start = performance.now();
+    const tick = (now) => {
+      setT((now - start) / 1000);
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+  const beatsPerSec = bpm / 60;
+  const beat = Math.floor(t * beatsPerSec);
+  const step = beat % 16;
+  const sub = (t * beatsPerSec) % 1;
+  return { t, beat, step, sub };
+}
+
+// --- Jacket placeholder (monochrome grid-noise, labelled as placeholder) ---
+function JacketPlaceholder({ label = "jacket art — replace", palette = "dark" }) {
+  const bg = palette === "light" ? "#efece5" : "#16130f";
+  const fg = palette === "light" ? "#16130f" : "#efece5";
+  const dots = [];
+  // deterministic noise grid
+  for (let y = 0; y < 40; y++) {
+    for (let x = 0; x < 40; x++) {
+      const s = Math.sin(x * 12.9 + y * 78.2) * 43758.5453;
+      const n = s - Math.floor(s);
+      if (n > 0.86) {
+        dots.push(
+          <rect key={`${x}-${y}`} x={x * 10} y={y * 10} width="10" height="10" fill={fg} opacity={0.06 + n * 0.25} />
+        );
+      }
+    }
+  }
+  return (
+    <svg viewBox="0 0 400 400" style={{ width: "100%", height: "100%", display: "block" }}>
+      <rect width="400" height="400" fill={bg} />
+      {dots}
+      {/* Tight frame */}
+      <rect x="14" y="14" width="372" height="372" fill="none" stroke={fg} strokeOpacity="0.15" />
+      {/* Center mark: polished / flame */}
+      <g fill="none" stroke={fg} strokeOpacity="0.85" strokeWidth="1.25">
+        <circle cx="160" cy="200" r="42" />
+        <circle cx="240" cy="200" r="42" />
+      </g>
+      <text x="160" y="204" fill={fg} fontFamily="JetBrains Mono, monospace" fontSize="10" textAnchor="middle" letterSpacing="2">POLISHED</text>
+      <text x="240" y="204" fill={fg} fontFamily="JetBrains Mono, monospace" fontSize="11" textAnchor="middle" letterSpacing="2">FLAME</text>
+      <text x="20" y="30" fill={fg} fontFamily="JetBrains Mono, monospace" fontSize="10" opacity="0.55" letterSpacing="1.5">makotyo — EP / 2026</text>
+      <text x="380" y="386" fill={fg} fontFamily="JetBrains Mono, monospace" fontSize="9" textAnchor="end" opacity="0.45" letterSpacing="1.5">[ {label} ]</text>
+    </svg>
+  );
+}
+
+// --- Section scaffolding helper ---
+function Labelled({ children, n, label, style }) {
+  return (
+    <div style={{ display: "flex", alignItems: "baseline", gap: 12, ...style }}>
+      <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 11, opacity: 0.55, letterSpacing: 2 }}>
+        {n}
+      </span>
+      <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 11, opacity: 0.85, letterSpacing: 2, textTransform: "uppercase" }}>
+        {label}
+      </span>
+      <span style={{ flex: 1, borderBottom: "1px solid currentColor", opacity: 0.15 }} />
+      {children}
+    </div>
+  );
+}
+
+Object.assign(window, {
+  EP,
+  Icon,
+  Waveform,
+  useFakePlayer,
+  useBpmClock,
+  JacketPlaceholder,
+  Labelled,
+});
