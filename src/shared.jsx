@@ -61,7 +61,6 @@ const EP = {
   links: [
     { label: "Bandcamp",    url: "#", primary: true,  note: "EP 試聴 / 購入 / DL" },
     { label: "SoundCloud",  url: "https://soundcloud.com/makotyo", primary: false, note: "@makotyo" },
-    { label: "YouTube",     url: "#", primary: false, note: "music video" },
     { label: "X / Twitter", url: "#", primary: false, note: "@makotyo" },
   ],
   profile: {
