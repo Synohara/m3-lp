@@ -134,7 +134,7 @@ function C_Hero() {
 }
 
 function C_Tracks() {
-  const { active, progresses, times, toggle, bind } = useAudioPlayer(EP.tracks.length);
+  const { active, progresses, times, toggle, seek, bind } = useAudioPlayer(EP.tracks.length);
   return (
     <section id="tracks" style={{ padding: "96px 40px", borderBottom: `1px solid ${C_PAL.line}` }}>
       <C_Label n="01" title="Tracks" />
@@ -184,34 +184,54 @@ function C_Tracks() {
               letterSpacing: 0, fontWeight: 500,
             }}>
               {t.title}
-              <button
-                onClick={() => toggle(i)}
-                style={{
-                  marginTop: 14,
-                  width: "100%",
-                  display: "grid",
-                  gridTemplateColumns: "28px 1fr auto",
-                  alignItems: "center",
-                  gap: 14,
-                  padding: "10px 12px",
-                  background: isActive ? "rgba(228,224,214,0.05)" : "rgba(228,224,214,0.02)",
-                  border: `1px solid ${isActive ? "rgba(228,224,214,0.26)" : C_PAL.line}`,
-                  color: "inherit",
-                  cursor: "pointer",
-                  textAlign: "left",
-                  font: "inherit",
-                }}
-              >
-                <span style={{ color: isActive ? C_PAL.accent : C_PAL.dim, display: "inline-flex", justifyContent: "center" }}>
-                  {isActive ? <Icon.pause size={11}/> : <Icon.play size={11}/>}
-                </span>
-                <span style={{ color: isActive ? C_PAL.ink : C_PAL.dim, fontSize: 11, letterSpacing: 1.5 }}>
-                  {isActive ? "PLAYING" : "PREVIEW"}
-                </span>
-                <span style={{ color: isActive ? C_PAL.accent : C_PAL.sub, fontSize: 11, letterSpacing: 1.5 }}>
-                  {currentLabel}
-                </span>
-              </button>
+              <div style={{
+                marginTop: 14,
+                padding: "10px 12px",
+                background: isActive ? "rgba(228,224,214,0.05)" : "rgba(228,224,214,0.02)",
+                border: `1px solid ${isActive ? "rgba(228,224,214,0.26)" : C_PAL.line}`,
+              }}>
+                <button
+                  onClick={() => toggle(i)}
+                  style={{
+                    width: "100%",
+                    display: "grid",
+                    gridTemplateColumns: "28px 1fr auto",
+                    alignItems: "center",
+                    gap: 14,
+                    background: "transparent",
+                    border: "none",
+                    color: "inherit",
+                    cursor: "pointer",
+                    textAlign: "left",
+                    font: "inherit",
+                    padding: 0,
+                  }}
+                >
+                  <span style={{ color: isActive ? C_PAL.accent : C_PAL.dim, display: "inline-flex", justifyContent: "center" }}>
+                    {isActive ? <Icon.pause size={11}/> : <Icon.play size={11}/>}
+                  </span>
+                  <span style={{ color: isActive ? C_PAL.ink : C_PAL.dim, fontSize: 11, letterSpacing: 1.5 }}>
+                    {isActive ? "PLAYING" : "PREVIEW"}
+                  </span>
+                  <span style={{ color: isActive ? C_PAL.accent : C_PAL.sub, fontSize: 11, letterSpacing: 1.5 }}>
+                    {currentLabel}
+                  </span>
+                </button>
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.001"
+                  value={Number.isFinite(progresses[i]) ? progresses[i] : 0}
+                  onChange={(e) => seek(i, Number(e.target.value))}
+                  style={{
+                    marginTop: 10,
+                    width: "100%",
+                    accentColor: "var(--accent)",
+                    cursor: "pointer",
+                  }}
+                />
+              </div>
               <audio
                 {...bind(i)}
                 aria-label={t.audioLabel}

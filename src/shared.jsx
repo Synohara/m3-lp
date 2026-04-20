@@ -250,11 +250,28 @@ function useAudioPlayer(trackCount) {
     audio.pause();
   };
 
+  const seek = (index, progress) => {
+    const audio = refs.current[index];
+    if (!audio || !Number.isFinite(audio.duration) || audio.duration <= 0) return;
+    const clamped = Math.max(0, Math.min(1, progress));
+    audio.currentTime = audio.duration * clamped;
+    updateTimeState(index, {
+      current: audio.currentTime,
+      duration: audio.duration,
+    });
+    setProgresses((prev) => {
+      const next = [...prev];
+      next[index] = clamped;
+      return next;
+    });
+  };
+
   return {
     active,
     progresses,
     times,
     toggle,
+    seek,
     bind,
   };
 }
