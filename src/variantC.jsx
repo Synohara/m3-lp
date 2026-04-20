@@ -126,7 +126,7 @@ function C_Tracks() {
   const { active, progresses, toggle, bind } = useAudioPlayer(EP.tracks.length);
   return (
     <section id="tracks" style={{ padding: "96px 40px", borderBottom: `1px solid ${C_PAL.line}` }}>
-      <C_Label n="01" title="Tracks" sub="埋め込み試聴" />
+      <C_Label n="01" title="Tracks" />
 
       <div style={{
         display: "grid",
