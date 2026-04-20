@@ -72,7 +72,7 @@ const EP = {
       ["booth",    "[藍-22] よっこらレコーズ"],
       ["genre",    "A03 / Techno · Club"],
       ["tags",     "DTM · 初参加 · エレクトロニカ"],
-      ["based",    "Tokyo, JP"],
+      ["link",     "soundcloud.com/makotyo"],
     ],
   },
   liner: [
