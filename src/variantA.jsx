@@ -334,10 +334,11 @@ function A_Buy() {
             fontFamily: "'Noto Serif JP', serif",
             fontSize: 44, lineHeight: 1.2, color: A_PAL.ink, marginBottom: 18, letterSpacing: "-0.01em",
           }}>
-            ネット出展。<br/>お会計はBandcampで。
+            {EP.online.label}<br/>{EP.online.genre}
           </div>
           <p style={{ fontFamily: "'Noto Sans JP', sans-serif", fontSize: 14, lineHeight: 1.9, color: A_PAL.dim, maxWidth: 480 }}>
-            今回のM3はオンラインでの参加です。下のリンクから試聴・購入できます。name-your-priceで公開しているので、気に入ったら値段を付けてもらえると嬉しいです。
+            {EP.online.tags.join(" / ")}<br/>
+            {EP.online.note}
           </p>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>

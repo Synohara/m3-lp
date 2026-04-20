@@ -283,15 +283,16 @@ function C_Buy() {
             color: C_PAL.ink,
             fontWeight: 500,
           }}>
-            ネット出展。<br/>
-            <span style={{ color: C_PAL.accent }}>Bandcamp</span>で<br/>お会いしましょう。
+            {EP.online.label}<br/>
+            <span style={{ color: C_PAL.accent }}>{EP.online.genre}</span>
           </div>
           <p style={{
             marginTop: 28, maxWidth: 440,
             fontSize: 13, lineHeight: 2, color: C_PAL.dim,
             fontFamily: "'Noto Sans JP', sans-serif",
           }}>
-            今回のM3はオンラインでの参加です。下のリンクから試聴・購入できます。name-your-priceで公開しているので、気に入ったら値段をつけてもらえると嬉しいです。
+            {EP.online.tags.join(" / ")}<br/>
+            {EP.online.note}
           </p>
         </div>
 

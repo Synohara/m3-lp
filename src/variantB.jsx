@@ -309,8 +309,12 @@ function B_Buy() {
         </div>
         <div>
           <div style={{ fontFamily: "'Noto Serif JP', serif", fontSize: "clamp(40px, 5vw, 72px)", lineHeight: 1.15, color: B_PAL.ink, letterSpacing: "-0.01em", marginBottom: 32 }}>
-            ネット出展。<br/><span style={{ fontStyle: "italic", color: B_PAL.accent }}>Bandcamp</span> でお会いしましょう。
+            {EP.online.label}<br/><span style={{ fontStyle: "italic", color: B_PAL.accent }}>{EP.online.genre}</span>
           </div>
+          <p style={{ fontFamily: "'Noto Serif JP', serif", fontSize: 15, lineHeight: 2, color: B_PAL.dim, marginBottom: 28, maxWidth: 680 }}>
+            {EP.online.tags.join(" / ")}<br/>
+            {EP.online.note}
+          </p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 0, maxWidth: 720 }}>
             {EP.links.map((l, i) => (
               <a key={i} href={l.url} style={{

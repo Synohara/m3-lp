@@ -53,24 +53,26 @@ const EP = {
     },
   ],
   online: {
-    label: "M3 Online Booth",
-    note: "今回はネット出展。下記リンクから試聴・購入できます。",
+    label: "[藍-22] よっこらレコーズ",
+    genre: "A03（音楽一般：テクノ・クラブ）",
+    tags: ["DTM", "初参加", "エレクトロニカ"],
+    note: "東京都在住。Breakbeats / Jazz / Footwork を軸に制作・活動しています。今回は新作1作品を頒布します。ぜひお立ち寄りください。",
   },
   links: [
     { label: "Bandcamp",    url: "#", primary: true,  note: "EP 試聴 / 購入 / DL" },
-    { label: "SoundCloud",  url: "#", primary: false, note: "crossfade demo" },
+    { label: "SoundCloud",  url: "https://soundcloud.com/makotyo", primary: false, note: "@makotyo" },
     { label: "YouTube",     url: "#", primary: false, note: "music video" },
     { label: "X / Twitter", url: "#", primary: false, note: "@makotyo" },
   ],
   profile: {
-    short: "Tokyo-based producer. Juke/Footworkを軸に、クラシックや民族音楽の断片を160BPMの骨格に織り込む。",
+    short: "東京都在住。Breakbeats / Jazz / Footwork を軸に制作・活動しています。",
     longJa:
-      "makotyo はJuke / Footworkを出発点に、クラシック音楽やフィールドレコーディングなど異質な素材を160BPMへ織り込むプロデューサー。DJ Rashad、Traxmanに衝撃を受けて制作を開始。スネアの点描と、残響する和声。静かな踊り場を作っている。",
+      "東京都在住。Breakbeats / Jazz / Footwork を軸に制作・活動しています。M3では [藍-22] よっこらレコーズ として参加し、ジャンルは A03（音楽一般：テクノ・クラブ）。今回は新作1作品を頒布します。ぜひお立ち寄りください。",
     facts: [
+      ["booth",    "[藍-22] よっこらレコーズ"],
+      ["genre",    "A03 / Techno · Club"],
+      ["tags",     "DTM · 初参加 · エレクトロニカ"],
       ["based",    "Tokyo, JP"],
-      ["since",    "2022"],
-      ["tools",    "Ableton / MPC / Field rec."],
-      ["roots",    "Juke · Footwork · Classical"],
     ],
   },
   liner: [
