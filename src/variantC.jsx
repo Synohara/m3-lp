@@ -191,19 +191,18 @@ function C_Tracks({ onPlaybackStart }) {
           }}>
             <span style={{ fontSize: 11, color: C_PAL.dim, letterSpacing: 2 }}>{t.n}</span>
             <div style={{
-              fontSize: 26, color: C_PAL.ink,
-              letterSpacing: 0, fontWeight: 500,
+              display: "flex",
+              alignItems: "center",
+              gap: 14,
             }}>
-              {t.title}
               <button
                 onClick={() => toggle(i)}
                 style={{
-                  marginTop: 10,
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  width: 28,
-                  height: 28,
+                  width: 34,
+                  height: 34,
                   background: "transparent",
                   border: "none",
                   color: "inherit",
@@ -214,9 +213,15 @@ function C_Tracks({ onPlaybackStart }) {
                 }}
               >
                 <span style={{ color: isActive ? C_PAL.accent : C_PAL.dim, display: "inline-flex", justifyContent: "center" }}>
-                  {isActive ? <Icon.pause size={14}/> : <Icon.play size={14}/>}
+                  {isActive ? <Icon.pause size={18}/> : <Icon.play size={18}/>}
                 </span>
               </button>
+              <div style={{
+                fontSize: 26, color: C_PAL.ink,
+                letterSpacing: 0, fontWeight: 500,
+              }}>
+                {t.title}
+              </div>
               <audio
                 {...bind(i)}
                 aria-label={t.audioLabel}
