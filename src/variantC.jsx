@@ -194,8 +194,8 @@ function C_Tracks() {
             }}>
               {t.title}
               <div style={{
-                marginTop: 14,
-                padding: "10px 12px",
+                marginTop: 10,
+                padding: "7px 10px",
                 background: isActive ? "rgba(228,224,214,0.05)" : "rgba(228,224,214,0.02)",
                 border: `1px solid ${isActive ? "rgba(228,224,214,0.26)" : C_PAL.line}`,
               }}>
@@ -204,9 +204,9 @@ function C_Tracks() {
                   style={{
                     width: "100%",
                     display: "grid",
-                    gridTemplateColumns: "28px 1fr",
+                    gridTemplateColumns: "22px 1fr",
                     alignItems: "center",
-                    gap: 14,
+                    gap: 10,
                     background: "transparent",
                     border: "none",
                     color: "inherit",
@@ -217,9 +217,9 @@ function C_Tracks() {
                   }}
                 >
                   <span style={{ color: isActive ? C_PAL.accent : C_PAL.dim, display: "inline-flex", justifyContent: "center" }}>
-                    {isActive ? <Icon.pause size={11}/> : <Icon.play size={11}/>}
+                    {isActive ? <Icon.pause size={10}/> : <Icon.play size={10}/>}
                   </span>
-                  <span style={{ color: isActive ? C_PAL.ink : C_PAL.dim, fontSize: 11, letterSpacing: 1.5 }}>
+                  <span style={{ color: isActive ? C_PAL.ink : C_PAL.dim, fontSize: 10, letterSpacing: 1.3 }}>
                     {isActive ? "PLAYING" : "PREVIEW"}
                   </span>
                 </button>
