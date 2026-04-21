@@ -75,7 +75,7 @@ const EP = {
   profile: {
     short: "東京都在住。Breakbeats / Jazz / Footwork を軸に制作・活動しています。",
     longJa:
-      "東京都在住。Breakbeats / Jazz / Footwork を軸に制作・活動しています。M3では [藍-22] よっこらレコーズ として参加し、ジャンルは A03（音楽一般：テクノ・クラブ）。今回は新作1作品を頒布します。ゆっくりしていってね！",
+      "静けさと衝動のあいだを鋭く行き来するFootwork / Breakbeatsの新作EP「Polished Flame」を頒布します。M3 2026春は [藍-22] よっこらレコーズ、A03（音楽一般：テクノ・クラブ）でお待ちしています。",
     facts: [
       ["booth",    "[藍-22] よっこらレコーズ"],
       ["genre",    "A03 / Techno · Club"],
