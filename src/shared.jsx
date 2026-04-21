@@ -77,10 +77,10 @@ const EP = {
     longJa:
       "静けさと衝動のあいだを鋭く行き来するFootwork / Breakbeatsの新作EP「Polished Flame」を頒布します。M3 2026春は [藍-22] よっこらレコーズ、A03（音楽一般：テクノ・クラブ）でお待ちしています。",
     facts: [
-      ["booth",    "[藍-22] よっこらレコーズ"],
-      ["genre",    "A03 / Techno · Club"],
-      ["tags",     "DTM · 初参加 · エレクトロニカ"],
-      ["link",     "soundcloud.com/makotyo"],
+      ["pulse",    "160 / split and steady"],
+      ["residue",  "classical fragments, left glowing"],
+      ["weight",   "stillness against pressure"],
+      ["after",    "a room that keeps ringing"],
     ],
   },
   liner: [
