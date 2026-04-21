@@ -202,11 +202,9 @@ function C_Tracks() {
                 <button
                   onClick={() => toggle(i)}
                   style={{
-                    width: "100%",
-                    display: "grid",
-                    gridTemplateColumns: "22px 1fr",
+                    width: "auto",
+                    display: "inline-flex",
                     alignItems: "center",
-                    gap: 10,
                     background: "transparent",
                     border: "none",
                     color: "inherit",
@@ -218,9 +216,6 @@ function C_Tracks() {
                 >
                   <span style={{ color: isActive ? C_PAL.accent : C_PAL.dim, display: "inline-flex", justifyContent: "center" }}>
                     {isActive ? <Icon.pause size={10}/> : <Icon.play size={10}/>}
-                  </span>
-                  <span style={{ color: isActive ? C_PAL.ink : C_PAL.dim, fontSize: 10, letterSpacing: 1.3 }}>
-                    {isActive ? "PLAYING" : "PREVIEW"}
                   </span>
                 </button>
               </div>
