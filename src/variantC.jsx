@@ -199,6 +199,9 @@ function C_Tracks() {
                   marginTop: 10,
                   display: "inline-flex",
                   alignItems: "center",
+                  justifyContent: "center",
+                  width: 28,
+                  height: 28,
                   background: "transparent",
                   border: "none",
                   color: "inherit",
@@ -209,7 +212,7 @@ function C_Tracks() {
                 }}
               >
                 <span style={{ color: isActive ? C_PAL.accent : C_PAL.dim, display: "inline-flex", justifyContent: "center" }}>
-                  {isActive ? <Icon.pause size={10}/> : <Icon.play size={10}/>}
+                  {isActive ? <Icon.pause size={14}/> : <Icon.play size={14}/>}
                 </span>
               </button>
               <audio
