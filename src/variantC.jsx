@@ -354,7 +354,7 @@ function C_Buy() {
 
       <div style={{ maxWidth: 880, marginBottom: 64 }}>
         {EP.links.map((l, i) => (
-          <a key={i} href={l.url} style={{
+          <a key={i} href={l.url} target="_blank" rel="noreferrer noopener" style={{
             display: "grid",
             gridTemplateColumns: "40px 1fr auto 20px",
             alignItems: "center", gap: 20,
