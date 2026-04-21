@@ -195,7 +195,8 @@ function C_Tracks() {
               {t.title}
               <div style={{
                 marginTop: 10,
-                padding: "7px 10px",
+                width: "fit-content",
+                padding: "7px 8px",
                 background: isActive ? "rgba(228,224,214,0.05)" : "rgba(228,224,214,0.02)",
                 border: `1px solid ${isActive ? "rgba(228,224,214,0.26)" : C_PAL.line}`,
               }}>
