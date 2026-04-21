@@ -207,24 +207,6 @@ function C_Tracks() {
                     {currentLabel}
                   </span>
                 </button>
-                <button
-                  type="button"
-                  aria-label={`${t.title} waveform seek`}
-                  onClick={handleWaveformSeek}
-                  style={{
-                    marginTop: 10,
-                    width: "100%",
-                    display: "block",
-                    background: "transparent",
-                    border: "none",
-                    padding: 0,
-                    cursor: "pointer",
-                  }}
-                >
-                  <div style={{ color: isActive ? C_PAL.accent : C_PAL.ink, opacity: isActive ? 1 : 0.6 }}>
-                    <Waveform seed={i + 5} color="currentColor" progress={progresses[i] || 0} height={22} />
-                  </div>
-                </button>
               </div>
               <audio
                 {...bind(i)}
@@ -234,6 +216,23 @@ function C_Tracks() {
                 style={{ display: "none" }}
               />
             </div>
+            <button
+              type="button"
+              aria-label={`${t.title} waveform seek`}
+              onClick={handleWaveformSeek}
+              style={{
+                display: "block",
+                width: "100%",
+                background: "transparent",
+                border: "none",
+                padding: 0,
+                cursor: "pointer",
+              }}
+            >
+              <div style={{ color: isActive ? C_PAL.accent : C_PAL.ink, opacity: isActive ? 1 : 0.6 }}>
+                <Waveform seed={i + 5} color="currentColor" progress={progresses[i] || 0} height={22} />
+              </div>
+            </button>
             <span style={{ textAlign: "right", fontSize: 12, color: isActive ? C_PAL.accent : C_PAL.ink, letterSpacing: 1.5 }}>
               <button
                 onClick={() => toggle(i)}
