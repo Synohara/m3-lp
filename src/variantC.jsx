@@ -193,33 +193,25 @@ function C_Tracks() {
               letterSpacing: 0, fontWeight: 500,
             }}>
               {t.title}
-              <div style={{
-                marginTop: 10,
-                width: "fit-content",
-                padding: "7px 8px",
-                background: isActive ? "rgba(228,224,214,0.05)" : "rgba(228,224,214,0.02)",
-                border: `1px solid ${isActive ? "rgba(228,224,214,0.26)" : C_PAL.line}`,
-              }}>
-                <button
-                  onClick={() => toggle(i)}
-                  style={{
-                    width: "auto",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    background: "transparent",
-                    border: "none",
-                    color: "inherit",
-                    cursor: "pointer",
-                    textAlign: "left",
-                    font: "inherit",
-                    padding: 0,
-                  }}
-                >
-                  <span style={{ color: isActive ? C_PAL.accent : C_PAL.dim, display: "inline-flex", justifyContent: "center" }}>
-                    {isActive ? <Icon.pause size={10}/> : <Icon.play size={10}/>}
-                  </span>
-                </button>
-              </div>
+              <button
+                onClick={() => toggle(i)}
+                style={{
+                  marginTop: 10,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  background: "transparent",
+                  border: "none",
+                  color: "inherit",
+                  cursor: "pointer",
+                  textAlign: "left",
+                  font: "inherit",
+                  padding: 0,
+                }}
+              >
+                <span style={{ color: isActive ? C_PAL.accent : C_PAL.dim, display: "inline-flex", justifyContent: "center" }}>
+                  {isActive ? <Icon.pause size={10}/> : <Icon.play size={10}/>}
+                </span>
+              </button>
               <audio
                 {...bind(i)}
                 aria-label={t.audioLabel}
