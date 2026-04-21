@@ -28,8 +28,7 @@ function C_Label({ n, title, sub }) {
 }
 
 function C_TopBar() {
-  const { sub } = useBpmClock(160);
-  const downbeatPulse = 0.35 + (1 - sub) * 0.65;
+  const { step, sub } = useBpmClock(160);
   return (
     <div style={{
       position: "fixed",
@@ -48,15 +47,20 @@ function C_TopBar() {
       <div style={{ display: "flex", gap: 4 }}>
         {Array.from({ length: 16 }, (_, i) => {
           const isDownbeat = i % 4 === 0;
+          const isCurrentStep = i === step;
+          const intensity = isCurrentStep ? (0.45 + (1 - sub) * 0.55) : 0;
           return (
             <span key={i} style={{
               width: 6,
-              height: isDownbeat ? 8 + downbeatPulse * 2 : 6,
+              height: isDownbeat ? 8 : 6,
               borderRadius: 999,
               background: isDownbeat
-                ? `rgba(194,74,31,${0.22 + downbeatPulse * 0.5})`
-                : "rgba(228,224,214,0.08)",
-              transition: "height 80ms linear, background 80ms linear",
+                ? `rgba(194,74,31,${0.22 + intensity * 0.5})`
+                : `rgba(228,224,214,${0.08 + intensity * 0.2})`,
+              boxShadow: isCurrentStep
+                ? `0 0 ${4 + intensity * 8}px rgba(194,74,31,${isDownbeat ? 0.22 : 0.12})`
+                : "none",
+              transition: "background 80ms linear, box-shadow 80ms linear",
             }} />
           );
         })}
