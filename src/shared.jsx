@@ -65,7 +65,7 @@ const EP = {
     label: "[藍-22] よっこらレコーズ",
     genre: "A03（音楽一般：テクノ・クラブ）",
     tags: ["DTM", "初参加", "エレクトロニカ"],
-    note: "東京都在住。Breakbeats / Jazz / Footwork を軸に制作しています。今回は新作を1作品頒布します。試聴と詳細は下のリンクからどうぞ。",
+    note: "",
   },
   links: [
     { label: "Bandcamp",    url: "#", primary: true,  note: "EP 試聴 / 購入 / DL" },

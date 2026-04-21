@@ -361,13 +361,15 @@ function C_Buy() {
           }}>
             {EP.online.tags.join(" / ")}
           </div>
-          <p style={{
-            marginTop: 20, maxWidth: 440,
-            fontSize: 13, lineHeight: 2, color: C_PAL.dim,
-            fontFamily: "'Noto Sans JP', sans-serif",
-          }}>
-            {EP.online.note}
-          </p>
+          {EP.online.note ? (
+            <p style={{
+              marginTop: 20, maxWidth: 440,
+              fontSize: 13, lineHeight: 2, color: C_PAL.dim,
+              fontFamily: "'Noto Sans JP', sans-serif",
+            }}>
+              {EP.online.note}
+            </p>
+          ) : null}
         </div>
 
         <div>
