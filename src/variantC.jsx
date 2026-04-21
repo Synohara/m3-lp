@@ -49,19 +49,29 @@ function C_TopBar() {
           const isDownbeat = i % 4 === 0;
           const isCurrentStep = i === step;
           const intensity = isCurrentStep ? (0.45 + (1 - sub) * 0.55) : 0;
+          const isCurrentDownbeat = isDownbeat && isCurrentStep;
           return (
             <span key={i} style={{
-              width: 6,
-              height: isDownbeat ? 8 : 6,
-              borderRadius: 999,
-              background: isDownbeat
-                ? `rgba(194,74,31,${0.22 + intensity * 0.5})`
-                : `rgba(228,224,214,${0.08 + intensity * 0.2})`,
-              boxShadow: isCurrentStep
-                ? `0 0 ${4 + intensity * 8}px rgba(194,74,31,${isDownbeat ? 0.22 : 0.12})`
-                : "none",
-              transition: "background 80ms linear, box-shadow 80ms linear",
-            }} />
+              width: 10,
+              height: 10,
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
+              <span style={{
+                width: 6,
+                height: isDownbeat ? 8 : 6,
+                borderRadius: 999,
+                background: isDownbeat
+                  ? `rgba(194,74,31,${0.22 + intensity * 0.5})`
+                  : `rgba(228,224,214,${0.08 + intensity * 0.2})`,
+                boxShadow: isCurrentStep
+                  ? `0 0 ${4 + intensity * 8}px rgba(194,74,31,${isDownbeat ? 0.22 : 0.12})`
+                  : "none",
+                transform: isCurrentDownbeat ? `scale(${1.15 + intensity * 0.35})` : "scale(1)",
+                transition: "background 80ms linear, box-shadow 80ms linear, transform 80ms linear",
+              }} />
+            </span>
           );
         })}
       </div>
