@@ -5,14 +5,14 @@ const EP = {
   titleSub: "",
   bpm: 160,
   year: "2026",
-  format: "4 tracks / EP",
+  format: "5 tracks / EP",
   price: "name your price",
   tagline: "",
   taglineJa: "160の世界で、クラシックとサンプリングをビートに落とす。",
   description:
-    "Chicago産のJuke / Footworkを軸に、クラシック音楽のフレーズや呼吸をサンプリングし、160BPMの網目に縫い込んだ4曲入りEP。静謐と衝動のあいだ。",
+    "Chicago産のJuke / Footworkを軸に、クラシック音楽のフレーズや呼吸をサンプリングし、160BPMの網目に縫い込んだ5曲入りEP。静謐と衝動のあいだ。",
   descriptionEn:
-    "A four-track EP weaving classical samples into the 160 BPM lattice of juke & footwork. Stillness meeting impulse.",
+    "A five-track EP weaving classical samples into the 160 BPM lattice of juke & footwork. Stillness meeting impulse.",
   influences: ["DJ Rashad", "Traxman", "Teklife", "classical phrasing"],
   tracks: [
     {
@@ -51,6 +51,15 @@ const EP = {
       audioFile: "Salaam Footwork.mp3",
       audioLabel: "Salaam Foot preview",
     },
+    {
+      n: "05",
+      title: "Palcco",
+      len: "2:57",
+      bpm: 160,
+      sample: "sampling: original",
+      audioFile: "Palcco.mp3",
+      audioLabel: "Palcco preview",
+    },
   ],
   online: {
     label: "[藍-22] よっこらレコーズ",
@@ -88,7 +97,7 @@ const EP = {
     {
       n: "iii.",
       head: "Polished Flame",
-      body: "四曲は研ぎ澄まされた炎のスケッチ。それぞれの曲はひとつの灯。Footworkの足運びを、音の側から描く試み。",
+      body: "五曲は研ぎ澄まされた炎のスケッチ。それぞれの曲はひとつの灯。Footworkの足運びを、音の側から描く試み。",
     },
   ],
 };
