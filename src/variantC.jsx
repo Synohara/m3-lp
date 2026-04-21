@@ -28,7 +28,6 @@ function C_Label({ n, title, sub }) {
 }
 
 function C_TopBar() {
-  const { step } = useBpmClock(160);
   return (
     <div style={{
       position: "fixed",
@@ -46,18 +45,13 @@ function C_TopBar() {
       <span style={{ color: C_PAL.ink }}>MAKOTYO</span>
       <div style={{ display: "flex", gap: 4 }}>
         {Array.from({ length: 16 }, (_, i) => {
-          const isActive = i === step;
           const isDownbeat = i % 4 === 0;
           return (
             <span key={i} style={{
               width: 6,
-              height: isActive && isDownbeat ? 12 : 6,
+              height: 6,
               borderRadius: 999,
-              background: isActive
-                ? C_PAL.accent
-                : (isDownbeat ? "rgba(228,224,214,0.28)" : "rgba(228,224,214,0.08)"),
-              transform: isActive && isDownbeat ? "translateY(-3px)" : "translateY(0)",
-              transformOrigin: "center bottom",
+              background: isDownbeat ? "rgba(228,224,214,0.28)" : "rgba(228,224,214,0.08)",
             }} />
           );
         })}
@@ -73,7 +67,7 @@ function C_Hero() {
       <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: 72, alignItems: "center" }}>
         <div>
           <div style={{ fontSize: 11, letterSpacing: 3, color: C_PAL.dim, marginBottom: 32 }}>
-            MKT-001 ／ 4 TRACKS
+            MKT-001 ／ 5 TRACKS
           </div>
           <h1 style={{
             margin: 0,
@@ -141,14 +135,13 @@ function C_Tracks() {
 
       <div style={{
         display: "grid",
-        gridTemplateColumns: "56px 64px 1fr 1.4fr 90px",
+        gridTemplateColumns: "64px minmax(0, 1fr) minmax(220px, 1.4fr) 90px",
         alignItems: "baseline",
         gap: 20,
         padding: "0 0 14px",
         borderBottom: `1px solid ${C_PAL.line}`,
         fontSize: 10, letterSpacing: 2, color: C_PAL.sub,
       }}>
-        <span></span>
         <span>№</span>
         <span>TITLE</span>
         <span></span>
@@ -159,10 +152,15 @@ function C_Tracks() {
         const isActive = active === i;
         const durationLabel = formatTime(times[i]?.duration);
         const currentLabel = isActive ? formatTime(times[i]?.current) : durationLabel;
+        const handleWaveformSeek = (e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          if (!rect.width) return;
+          seek(i, (e.clientX - rect.left) / rect.width);
+        };
         return (
           <div key={i} style={{
             display: "grid",
-            gridTemplateColumns: "56px 64px 1fr 1.4fr 90px",
+            gridTemplateColumns: "64px minmax(0, 1fr) minmax(220px, 1.4fr) 90px",
             alignItems: "center",
             gap: 20,
             padding: "26px 0",
@@ -170,14 +168,6 @@ function C_Tracks() {
             background: isActive ? "rgba(228,224,214,0.03)" : "transparent",
             transition: "background 200ms",
           }}>
-            <span style={{ display: "inline-flex", justifyContent: "center" }}>
-              <span style={{
-                width: isActive ? 18 : 10,
-                height: 1,
-                background: isActive ? C_PAL.accent : C_PAL.line,
-                transition: "width 160ms ease, background 160ms ease",
-              }} />
-            </span>
             <span style={{ fontSize: 11, color: C_PAL.dim, letterSpacing: 2 }}>{t.n}</span>
             <div style={{
               fontSize: 26, color: C_PAL.ink,
@@ -217,20 +207,24 @@ function C_Tracks() {
                     {currentLabel}
                   </span>
                 </button>
-                <input
-                  type="range"
-                  min="0"
-                  max="1"
-                  step="0.001"
-                  value={Number.isFinite(progresses[i]) ? progresses[i] : 0}
-                  onChange={(e) => seek(i, Number(e.target.value))}
+                <button
+                  type="button"
+                  aria-label={`${t.title} waveform seek`}
+                  onClick={handleWaveformSeek}
                   style={{
                     marginTop: 10,
                     width: "100%",
-                    accentColor: "var(--accent)",
+                    display: "block",
+                    background: "transparent",
+                    border: "none",
+                    padding: 0,
                     cursor: "pointer",
                   }}
-                />
+                >
+                  <div style={{ color: isActive ? C_PAL.accent : C_PAL.ink, opacity: isActive ? 1 : 0.6 }}>
+                    <Waveform seed={i + 5} color="currentColor" progress={progresses[i] || 0} height={22} />
+                  </div>
+                </button>
               </div>
               <audio
                 {...bind(i)}
@@ -239,9 +233,6 @@ function C_Tracks() {
                 src={t.audioSrc}
                 style={{ display: "none" }}
               />
-            </div>
-            <div style={{ color: isActive ? C_PAL.accent : C_PAL.ink, opacity: isActive ? 1 : 0.6 }}>
-              <Waveform seed={i + 5} color="currentColor" progress={progresses[i] || 0} height={22} />
             </div>
             <span style={{ textAlign: "right", fontSize: 12, color: isActive ? C_PAL.accent : C_PAL.ink, letterSpacing: 1.5 }}>
               <button
