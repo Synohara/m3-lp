@@ -63,10 +63,10 @@ function C_TopBar() {
                 height: isDownbeat ? 8 : 6,
                 borderRadius: 999,
                 background: isDownbeat
-                  ? `rgba(194,74,31,${0.22 + intensity * 0.5})`
+                  ? `rgba(228,120,84,${0.34 + intensity * 0.56})`
                   : `rgba(228,224,214,${0.08 + intensity * 0.2})`,
                 boxShadow: isCurrentStep
-                  ? `0 0 ${4 + intensity * 8}px rgba(194,74,31,${isDownbeat ? 0.22 : 0.12})`
+                  ? `0 0 ${4 + intensity * 8}px rgba(228,120,84,${isDownbeat ? 0.28 : 0.12})`
                   : "none",
                 transform: isCurrentDownbeat ? `scale(${1.15 + intensity * 0.35})` : "scale(1)",
                 transition: "background 80ms linear, box-shadow 80ms linear, transform 80ms linear",
