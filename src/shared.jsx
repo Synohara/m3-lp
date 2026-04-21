@@ -54,7 +54,7 @@ const EP = {
     {
       n: "05",
       title: "Palcco",
-      len: "2:57",
+      len: "2:09",
       bpm: 160,
       sample: "sampling: original",
       audioFile: "Palcco.mp3",
