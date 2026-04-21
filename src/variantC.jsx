@@ -173,10 +173,20 @@ function C_Tracks({ onPlaybackStart }) {
         const isActive = active === i;
         const durationLabel = formatTime(times[i]?.duration);
         const currentLabel = isActive ? formatTime(times[i]?.current) : durationLabel;
-        const handleWaveformSeek = (e) => {
-          const rect = e.currentTarget.getBoundingClientRect();
+        const seekFromPointer = (node, clientX) => {
+          const rect = node.getBoundingClientRect();
           if (!rect.width) return;
-          seek(i, (e.clientX - rect.left) / rect.width);
+          seek(i, (clientX - rect.left) / rect.width);
+        };
+        const handleWaveformPointerDown = (e) => {
+          seekFromPointer(e.currentTarget, e.clientX);
+          if (typeof e.currentTarget.setPointerCapture === "function") {
+            e.currentTarget.setPointerCapture(e.pointerId);
+          }
+        };
+        const handleWaveformPointerMove = (e) => {
+          if ((e.buttons & 1) !== 1) return;
+          seekFromPointer(e.currentTarget, e.clientX);
         };
         return (
           <div key={i} style={{
@@ -233,7 +243,8 @@ function C_Tracks({ onPlaybackStart }) {
             <button
               type="button"
               aria-label={`${t.title} waveform seek`}
-              onClick={handleWaveformSeek}
+              onPointerDown={handleWaveformPointerDown}
+              onPointerMove={handleWaveformPointerMove}
               style={{
                 display: "block",
                 width: "100%",
