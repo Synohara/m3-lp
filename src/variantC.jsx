@@ -194,7 +194,7 @@ function C_Tracks() {
                   style={{
                     width: "100%",
                     display: "grid",
-                    gridTemplateColumns: "28px 1fr auto",
+                    gridTemplateColumns: "28px 1fr",
                     alignItems: "center",
                     gap: 14,
                     background: "transparent",
@@ -211,9 +211,6 @@ function C_Tracks() {
                   </span>
                   <span style={{ color: isActive ? C_PAL.ink : C_PAL.dim, fontSize: 11, letterSpacing: 1.5 }}>
                     {isActive ? "PLAYING" : "PREVIEW"}
-                  </span>
-                  <span style={{ color: isActive ? C_PAL.accent : C_PAL.sub, fontSize: 11, letterSpacing: 1.5 }}>
-                    {currentLabel}
                   </span>
                 </button>
               </div>
@@ -255,7 +252,7 @@ function C_Tracks() {
                   padding: 0,
                 }}
               >
-                {durationLabel}
+                {currentLabel}
               </button>
             </span>
           </div>
