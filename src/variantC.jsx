@@ -27,8 +27,8 @@ function C_Label({ n, title, sub }) {
   );
 }
 
-function C_TopBar() {
-  const { step, sub } = useBpmClock(160);
+function C_TopBar({ syncKey = 0 }) {
+  const { step, sub } = useBpmClock(160, syncKey);
   return (
     <div style={{
       position: "fixed",
@@ -146,8 +146,10 @@ function C_Hero() {
   );
 }
 
-function C_Tracks() {
-  const { active, progresses, times, toggle, seek, bind } = useAudioPlayer(EP.tracks.length);
+function C_Tracks({ onPlaybackStart }) {
+  const { active, progresses, times, toggle, seek, bind } = useAudioPlayer(EP.tracks.length, {
+    onStart: onPlaybackStart,
+  });
   return (
     <section id="tracks" style={{ padding: "96px 40px", borderBottom: `1px solid ${C_PAL.line}` }}>
       <C_Label n="01" title="Tracks" />
@@ -405,6 +407,7 @@ function C_Buy() {
 }
 
 function VariantC() {
+  const [clockSyncKey, setClockSyncKey] = React.useState(0);
   return (
     <div style={{
       background: C_PAL.bg,
@@ -412,9 +415,9 @@ function VariantC() {
       minHeight: "100vh",
       fontFamily: "'JetBrains Mono', monospace",
     }}>
-      <C_TopBar />
+      <C_TopBar syncKey={clockSyncKey} />
       <C_Hero />
-      <C_Tracks />
+      <C_Tracks onPlaybackStart={() => setClockSyncKey((prev) => prev + 1)} />
       <C_Profile />
       <C_Buy />
     </div>

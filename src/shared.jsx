@@ -173,7 +173,8 @@ function formatTime(seconds) {
 }
 
 // --- Real audio player coordinator: keeps one preview playing at a time ---
-function useAudioPlayer(trackCount) {
+function useAudioPlayer(trackCount, options = {}) {
+  const { onStart } = options;
   const refs = React.useRef([]);
   const [active, setActive] = React.useState(null);
   const [progresses, setProgresses] = React.useState(() => Array(trackCount).fill(0));
@@ -250,6 +251,7 @@ function useAudioPlayer(trackCount) {
     const audio = refs.current[index];
     if (!audio) return;
     if (audio.paused) {
+      if (typeof onStart === "function") onStart(index);
       const playResult = audio.play();
       if (playResult && typeof playResult.catch === "function") {
         playResult.catch(() => {});
@@ -287,7 +289,7 @@ function useAudioPlayer(trackCount) {
 
 // --- 160 BPM pulse (global clock for Juke time) ---
 // Returns beat index, 16th-note step (0..15 within bar), and sub-beat progress.
-function useBpmClock(bpm = 160) {
+function useBpmClock(bpm = 160, resetKey = 0) {
   const [t, setT] = React.useState(0);
   React.useEffect(() => {
     let raf, start = performance.now();
@@ -297,7 +299,7 @@ function useBpmClock(bpm = 160) {
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, []);
+  }, [resetKey]);
   const beatsPerSec = bpm / 60;
   const stepsPerSec = beatsPerSec * 4;
   const beat = Math.floor(t * beatsPerSec);
