@@ -350,66 +350,34 @@ function C_Profile() {
 function C_Buy() {
   return (
     <section id="buy" style={{ padding: "96px 40px 40px" }}>
-      <C_Label n="03" title="Online Booth" sub="M3-2026 / ネット出展" />
+      <C_Label n="03" title="Links" />
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1.1fr", gap: 64, alignItems: "start", marginBottom: 64 }}>
-        <div>
-          <div style={{
-            fontSize: "clamp(34px, 4.4vw, 60px)",
-            lineHeight: 1.15,
-            letterSpacing: "-0.02em",
+      <div style={{ maxWidth: 880, marginBottom: 64 }}>
+        {EP.links.map((l, i) => (
+          <a key={i} href={l.url} style={{
+            display: "grid",
+            gridTemplateColumns: "40px 1fr auto 20px",
+            alignItems: "center", gap: 20,
+            padding: "22px 0",
+            borderTop: `1px solid ${C_PAL.line}`,
+            marginTop: i === 0 ? 0 : -1,
+            textDecoration: "none",
             color: C_PAL.ink,
-            fontWeight: 500,
           }}>
-            {EP.online.label}<br/>
-            <span style={{ color: C_PAL.accent }}>{EP.online.genre}</span>
-          </div>
-          <div style={{
-            marginTop: 18,
-            fontSize: 10,
-            letterSpacing: 2,
-            color: C_PAL.sub,
-          }}>
-            {EP.online.tags.join(" / ")}
-          </div>
-          {EP.online.note ? (
-            <p style={{
-              marginTop: 20, maxWidth: 440,
-              fontSize: 13, lineHeight: 2, color: C_PAL.dim,
-              fontFamily: "'Noto Sans JP', sans-serif",
+            <span style={{ fontSize: 10, letterSpacing: 2, color: C_PAL.sub }}>
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <span style={{
+              fontSize: 22, letterSpacing: 0.5,
+              color: l.primary ? C_PAL.accent : C_PAL.ink,
             }}>
-              {EP.online.note}
-            </p>
-          ) : null}
-        </div>
-
-        <div>
-          {EP.links.map((l, i) => (
-            <a key={i} href={l.url} style={{
-              display: "grid",
-              gridTemplateColumns: "40px 1fr auto 20px",
-              alignItems: "center", gap: 20,
-              padding: "22px 0",
-              borderTop: i === 0 ? `1px solid ${C_PAL.line}` : `1px solid ${C_PAL.line}`,
-              marginTop: -1,
-              textDecoration: "none",
-              color: C_PAL.ink,
-            }}>
-              <span style={{ fontSize: 10, letterSpacing: 2, color: C_PAL.sub }}>
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span style={{
-                fontSize: 22, letterSpacing: 0.5,
-                color: l.primary ? C_PAL.accent : C_PAL.ink,
-              }}>
-                {l.label}
-              </span>
-              <span style={{ fontSize: 11, color: C_PAL.dim, letterSpacing: 1.5 }}>{l.note}</span>
-              <Icon.ext size={12} />
-            </a>
-          ))}
-          <div style={{ borderTop: `1px solid ${C_PAL.line}` }} />
-        </div>
+              {l.label}
+            </span>
+            <span style={{ fontSize: 11, color: C_PAL.dim, letterSpacing: 1.5 }}>{l.note}</span>
+            <Icon.ext size={12} />
+          </a>
+        ))}
+        <div style={{ borderTop: `1px solid ${C_PAL.line}` }} />
       </div>
 
       <div style={{
