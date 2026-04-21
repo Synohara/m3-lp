@@ -28,6 +28,7 @@ function C_Label({ n, title, sub }) {
 }
 
 function C_TopBar() {
+  const { step } = useBpmClock(160);
   return (
     <div style={{
       position: "fixed",
@@ -45,13 +46,17 @@ function C_TopBar() {
       <span style={{ color: C_PAL.ink }}>MAKOTYO</span>
       <div style={{ display: "flex", gap: 4 }}>
         {Array.from({ length: 16 }, (_, i) => {
+          const isActive = i === step;
           const isDownbeat = i % 4 === 0;
           return (
             <span key={i} style={{
               width: 6,
-              height: 6,
+              height: isActive ? (isDownbeat ? 10 : 8) : 6,
               borderRadius: 999,
-              background: isDownbeat ? "rgba(228,224,214,0.28)" : "rgba(228,224,214,0.08)",
+              background: isActive
+                ? C_PAL.accent
+                : (isDownbeat ? "rgba(228,224,214,0.28)" : "rgba(228,224,214,0.08)"),
+              transition: "height 120ms ease, background 120ms ease",
             }} />
           );
         })}
