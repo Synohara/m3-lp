@@ -28,7 +28,8 @@ function C_Label({ n, title, sub }) {
 }
 
 function C_TopBar() {
-  const { step } = useBpmClock(160);
+  const { sub } = useBpmClock(160);
+  const downbeatPulse = 0.35 + (1 - sub) * 0.65;
   return (
     <div style={{
       position: "fixed",
@@ -47,16 +48,15 @@ function C_TopBar() {
       <div style={{ display: "flex", gap: 4 }}>
         {Array.from({ length: 16 }, (_, i) => {
           const isDownbeat = i % 4 === 0;
-          const isAccentBeat = isDownbeat && i === step;
           return (
             <span key={i} style={{
               width: 6,
-              height: isAccentBeat ? 10 : 6,
+              height: isDownbeat ? 8 + downbeatPulse * 2 : 6,
               borderRadius: 999,
-              background: isAccentBeat
-                ? C_PAL.accent
-                : (isDownbeat ? "rgba(228,224,214,0.28)" : "rgba(228,224,214,0.08)"),
-              transition: "height 120ms ease, background 120ms ease",
+              background: isDownbeat
+                ? `rgba(194,74,31,${0.22 + downbeatPulse * 0.5})`
+                : "rgba(228,224,214,0.08)",
+              transition: "height 80ms linear, background 80ms linear",
             }} />
           );
         })}
