@@ -327,6 +327,7 @@ function C_Profile() {
           fontSize: 17, lineHeight: 2, color: C_PAL.ink,
           maxWidth: 720, letterSpacing: 0,
           fontFamily: "'Noto Sans JP', sans-serif", fontWeight: 300,
+          whiteSpace: "pre-line",
         }}>
           {EP.profile.longJa}
         </p>

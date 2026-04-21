@@ -75,7 +75,7 @@ const EP = {
   profile: {
     short: "東京都在住。Breakbeats / Jazz / Footwork を軸に制作・活動しています。",
     longJa:
-      "静けさと衝動のあいだを鋭く行き来する新作EP「Polished Flame」を頒布します。M3 2026春は [藍-22] よっこらレコーズ、A03（音楽一般：テクノ・クラブ）にてオンライン出展します。",
+      "静けさと衝動のあいだを鋭く行き来する新作EP「Polished Flame」を頒布します。\nM3 2026春は [藍-22] よっこらレコーズ、A03（音楽一般：テクノ・クラブ）にてオンライン出展します。",
     facts: [
       ["phase",    "northbound / soft error"],
       ["trace",    "velvet dust in signal"],
