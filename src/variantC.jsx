@@ -95,9 +95,6 @@ function C_Hero() {
     <section style={{ padding: isMobile ? "104px 16px 56px" : isTablet ? "120px 24px 72px" : "132px 40px 96px", borderBottom: `1px solid ${C_PAL.line}` }}>
       <div style={{ display: "grid", gridTemplateColumns: isTablet ? "1fr" : "1.3fr 1fr", gap: isMobile ? 36 : isTablet ? 48 : 72, alignItems: "center" }}>
         <div>
-          <div style={{ fontSize: 11, letterSpacing: isMobile ? 2 : 3, color: C_PAL.dim, marginBottom: isMobile ? 20 : 32 }}>
-            MKT-001 ／ 5 TRACKS
-          </div>
           <h1 style={{
             margin: 0,
             fontSize: isMobile ? "clamp(48px, 18vw, 72px)" : "clamp(56px, 8.4vw, 140px)",
