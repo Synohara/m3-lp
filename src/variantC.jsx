@@ -83,7 +83,23 @@ function C_TopBar({ syncKey = 0 }) {
           );
         })}
       </div>
-      <span style={{ textAlign: "right", color: C_PAL.dim, whiteSpace: "nowrap" }}>POLISHED FLAME</span>
+      <a
+        href={EP.links[0].url}
+        target="_blank"
+        rel="noreferrer noopener"
+        style={{
+          textAlign: "right",
+          color: C_PAL.dim,
+          whiteSpace: "nowrap",
+          textDecoration: "none",
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          gap: 8,
+        }}
+      >
+        BANDCAMP <Icon.ext size={10}/>
+      </a>
     </div>
   );
 }
@@ -196,7 +212,7 @@ function C_Tracks({ onPlaybackStart }) {
               accentColor: C_PAL.accent,
             }}
           />
-          <span style={{ textAlign: "right", color: C_PAL.text }}>{Math.round(volume * 100)}</span>
+          <span style={{ textAlign: "right", color: C_PAL.ink }}>{Math.round(volume * 100)}</span>
         </div>
       </div>
 
@@ -408,7 +424,56 @@ function C_Tracks({ onPlaybackStart }) {
 }
 
 function C_Media() {
-  return null;
+  const isTablet = useMediaQuery("(max-width: 980px)");
+  const isMobile = useMediaQuery("(max-width: 720px)");
+  return (
+    <section id="teaser" style={{ padding: isMobile ? "56px 16px" : isTablet ? "72px 24px" : "96px 40px", borderBottom: `1px solid ${C_PAL.line}` }}>
+      <C_Label n="02" title="Teaser" sub="60 sec preview" />
+      <div style={{
+        maxWidth: 1120,
+        display: "grid",
+        gridTemplateColumns: isTablet ? "1fr" : "minmax(0, 1.25fr) 280px",
+        gap: isMobile ? 24 : 36,
+        alignItems: "end",
+      }}>
+        <video
+          controls
+          preload="metadata"
+          poster={encodeURI(`./public/${EP.coverArt}`)}
+          style={{
+            width: "100%",
+            aspectRatio: "16 / 9",
+            display: "block",
+            background: "#050507",
+            border: `1px solid ${C_PAL.line}`,
+          }}
+        >
+          <source src="./public/video/polished-flame-teaser.mp4" type="video/mp4" />
+        </video>
+        <div style={{
+          borderTop: `1px solid ${C_PAL.line}`,
+          borderBottom: `1px solid ${C_PAL.line}`,
+          padding: "18px 0",
+          fontSize: 11,
+          letterSpacing: 1.7,
+          color: C_PAL.dim,
+          lineHeight: 2,
+        }}>
+          <div style={{ color: C_PAL.ink, fontSize: 13, letterSpacing: 2, marginBottom: 10 }}>POLISHED FLAME TEASER</div>
+          <div>60 SEC / 5 TRACKS</div>
+          <div>FOR YOUTUBE PREVIEW</div>
+          <a
+            href={EP.links[0].url}
+            target="_blank"
+            rel="noreferrer noopener"
+            style={{ color: C_PAL.accent, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, marginTop: 12 }}
+          >
+            BANDCAMP <Icon.ext size={10}/>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function C_Video({ title, sub }) {
@@ -449,7 +514,7 @@ function C_Profile() {
   const isMobile = useMediaQuery("(max-width: 720px)");
   return (
     <section style={{ padding: isMobile ? "56px 16px" : isTablet ? "72px 24px" : "96px 40px", borderBottom: `1px solid ${C_PAL.line}` }}>
-      <C_Label n="02" title="About" sub="makotyo" />
+      <C_Label n="03" title="About" sub="makotyo" />
       <div style={{ display: "grid", gridTemplateColumns: isTablet ? "1fr" : "1.5fr 1fr", gap: isMobile ? 28 : isTablet ? 40 : 64, alignItems: "start" }}>
         <p style={{
           fontSize: isMobile ? 15 : 17, lineHeight: isMobile ? 1.9 : 2, color: C_PAL.ink,
@@ -482,7 +547,7 @@ function C_Buy() {
   const isMobile = useMediaQuery("(max-width: 720px)");
   return (
     <section id="buy" style={{ padding: isMobile ? "56px 16px 32px" : isTablet ? "72px 24px 36px" : "96px 40px 40px" }}>
-      <C_Label n="03" title="Links" />
+      <C_Label n="04" title="Links" />
 
       <div style={{ maxWidth: 880, marginBottom: isMobile ? 40 : 64 }}>
         {EP.links.map((l, i) => (
@@ -518,12 +583,28 @@ function C_Buy() {
       </div>
 
       <div style={{
-        display: "flex", justifyContent: "space-between", flexDirection: isMobile ? "column" : "row",
+        display: "grid",
+        gridTemplateColumns: isMobile ? "1fr" : "1fr auto",
+        alignItems: "center",
         gap: isMobile ? 10 : 16,
         paddingTop: 24, borderTop: `1px solid ${C_PAL.line}`,
         fontSize: 10, letterSpacing: 2, color: C_PAL.sub,
       }}>
         <span>© 2026 MAKOTYO — ALL RIGHTS RESERVED</span>
+        <a
+          href={EP.links[0].url}
+          target="_blank"
+          rel="noreferrer noopener"
+          style={{
+            color: C_PAL.ink,
+            textDecoration: "none",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 8,
+          }}
+        >
+          NAME YOUR PRICE ON BANDCAMP <Icon.ext size={10}/>
+        </a>
       </div>
     </section>
   );
@@ -541,6 +622,7 @@ function VariantC() {
       <C_TopBar syncKey={clockSyncKey} />
       <C_Hero />
       <C_Tracks onPlaybackStart={() => setClockSyncKey((prev) => prev + 1)} />
+      <C_Media />
       <C_Profile />
       <C_Buy />
     </div>
