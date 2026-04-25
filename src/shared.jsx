@@ -2,6 +2,7 @@
 const EP = {
   artist: "makotyo",
   title: "Polished Flame",
+  coverArt: "polished-flame-cover.png",
   titleSub: "",
   bpm: 160,
   year: "2026",
@@ -203,6 +204,7 @@ function useAudioPlayer(trackCount, options = {}) {
   const { onStart } = options;
   const refs = React.useRef([]);
   const [active, setActive] = React.useState(null);
+  const [volume, setVolume] = React.useState(0.85);
   const [progresses, setProgresses] = React.useState(() => Array(trackCount).fill(0));
   const [times, setTimes] = React.useState(() => Array.from({ length: trackCount }, () => ({
     current: 0,
@@ -221,6 +223,12 @@ function useAudioPlayer(trackCount, options = {}) {
     });
   }, [trackCount]);
 
+  React.useEffect(() => {
+    refs.current.forEach((audio) => {
+      if (audio) audio.volume = volume;
+    });
+  }, [volume]);
+
   const updateTimeState = (index, patch) => {
     setTimes((prev) => {
       const current = prev[index] || { current: 0, duration: NaN };
@@ -235,6 +243,7 @@ function useAudioPlayer(trackCount, options = {}) {
   const bind = (index) => ({
     ref: (node) => {
       refs.current[index] = node;
+      if (node) node.volume = volume;
     },
     onPlay: () => {
       refs.current.forEach((audio, i) => {
@@ -307,6 +316,8 @@ function useAudioPlayer(trackCount, options = {}) {
     active,
     progresses,
     times,
+    volume,
+    setVolume,
     toggle,
     seek,
     bind,

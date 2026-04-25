@@ -145,7 +145,11 @@ function C_Hero() {
 
         <div style={{ position: "relative" }}>
           <div style={{ width: "100%", maxWidth: isTablet ? 520 : "none", margin: isTablet ? "0 auto" : 0, aspectRatio: "1", boxShadow: "0 40px 80px rgba(0,0,0,0.55)" }}>
-            <JacketPlaceholder palette="dark" />
+            <img
+              src={encodeURI(`./public/${EP.coverArt}`)}
+              alt={`${EP.title} cover art`}
+              style={{ width: "100%", height: "100%", display: "block", objectFit: "cover" }}
+            />
           </div>
         </div>
       </div>
@@ -154,7 +158,7 @@ function C_Hero() {
 }
 
 function C_Tracks({ onPlaybackStart }) {
-  const { active, progresses, times, toggle, seek, bind } = useAudioPlayer(EP.tracks.length, {
+  const { active, progresses, times, volume, setVolume, toggle, seek, bind } = useAudioPlayer(EP.tracks.length, {
     onStart: onPlaybackStart,
   });
   const isTablet = useMediaQuery("(max-width: 980px)");
@@ -162,6 +166,33 @@ function C_Tracks({ onPlaybackStart }) {
   return (
     <section id="tracks" style={{ padding: isMobile ? "56px 16px" : isTablet ? "72px 24px" : "96px 40px", borderBottom: `1px solid ${C_PAL.line}` }}>
       <C_Label n="01" title="Tracks" />
+
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: isMobile ? "1fr" : "auto minmax(160px, 260px)",
+        alignItems: "center",
+        justifyContent: isMobile ? "stretch" : "end",
+        gap: isMobile ? 10 : 16,
+        margin: isMobile ? "-12px 0 28px" : "-18px 0 34px",
+        color: C_PAL.dim,
+        fontSize: 10,
+        letterSpacing: 2,
+      }}>
+        <span>VOLUME {Math.round(volume * 100).toString().padStart(2, "0")}</span>
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          value={volume}
+          aria-label="Preview volume"
+          onChange={(e) => setVolume(Number(e.currentTarget.value))}
+          style={{
+            width: "100%",
+            accentColor: C_PAL.accent,
+          }}
+        />
+      </div>
 
       {!isMobile && (
         <div style={{
@@ -490,7 +521,6 @@ function C_Buy() {
         fontSize: 10, letterSpacing: 2, color: C_PAL.sub,
       }}>
         <span>© 2026 MAKOTYO — ALL RIGHTS RESERVED</span>
-        <span>POLISHED · FLAME</span>
       </div>
     </section>
   );
