@@ -423,92 +423,6 @@ function C_Tracks({ onPlaybackStart }) {
   );
 }
 
-function C_Media() {
-  const isTablet = useMediaQuery("(max-width: 980px)");
-  const isMobile = useMediaQuery("(max-width: 720px)");
-  return (
-    <section id="teaser" style={{ padding: isMobile ? "56px 16px" : isTablet ? "72px 24px" : "96px 40px", borderBottom: `1px solid ${C_PAL.line}` }}>
-      <C_Label n="02" title="Teaser" sub="60 sec preview" />
-      <div style={{
-        maxWidth: 1120,
-        display: "grid",
-        gridTemplateColumns: isTablet ? "1fr" : "minmax(0, 1.25fr) 280px",
-        gap: isMobile ? 24 : 36,
-        alignItems: "end",
-      }}>
-        <video
-          controls
-          preload="metadata"
-          poster={encodeURI(`./public/${EP.coverArt}`)}
-          style={{
-            width: "100%",
-            aspectRatio: "16 / 9",
-            display: "block",
-            background: "#050507",
-            border: `1px solid ${C_PAL.line}`,
-          }}
-        >
-          <source src="./public/video/polished-flame-teaser.mp4" type="video/mp4" />
-        </video>
-        <div style={{
-          borderTop: `1px solid ${C_PAL.line}`,
-          borderBottom: `1px solid ${C_PAL.line}`,
-          padding: "18px 0",
-          fontSize: 11,
-          letterSpacing: 1.7,
-          color: C_PAL.dim,
-          lineHeight: 2,
-        }}>
-          <div style={{ color: C_PAL.ink, fontSize: 13, letterSpacing: 2, marginBottom: 10 }}>POLISHED FLAME TEASER</div>
-          <div>60 SEC / 5 TRACKS</div>
-          <div>FOR YOUTUBE PREVIEW</div>
-          <a
-            href={EP.links[0].url}
-            target="_blank"
-            rel="noreferrer noopener"
-            style={{ color: C_PAL.accent, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, marginTop: 12 }}
-          >
-            BANDCAMP <Icon.ext size={10}/>
-          </a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function C_Video({ title, sub }) {
-  return (
-    <div>
-      <div style={{
-        width: "100%", aspectRatio: "16/9",
-        background: "#16161a",
-        border: `1px solid ${C_PAL.line}`,
-        position: "relative", overflow: "hidden",
-        display: "flex", alignItems: "center", justifyContent: "center",
-      }}>
-        <div style={{
-          width: 64, height: 64, borderRadius: 64,
-          border: `1px solid ${C_PAL.ink}`,
-          display: "flex", alignItems: "center", justifyContent: "center",
-          color: C_PAL.ink,
-        }}>
-          <Icon.play size={18} />
-        </div>
-        <span style={{ position: "absolute", top: 14, left: 16, fontSize: 10, letterSpacing: 2, color: C_PAL.dim }}>
-          [ VIDEO PLACEHOLDER — embed URL ]
-        </span>
-      </div>
-      <div style={{
-        display: "flex", justifyContent: "space-between",
-        marginTop: 12, fontSize: 11, letterSpacing: 1.5,
-      }}>
-        <span style={{ color: C_PAL.ink }}>{title}</span>
-        <span style={{ color: C_PAL.dim }}>{sub}</span>
-      </div>
-    </div>
-  );
-}
-
 function C_Profile() {
   const isTablet = useMediaQuery("(max-width: 980px)");
   const isMobile = useMediaQuery("(max-width: 720px)");
@@ -584,27 +498,13 @@ function C_Buy() {
 
       <div style={{
         display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "1fr auto",
+        gridTemplateColumns: "1fr",
         alignItems: "center",
         gap: isMobile ? 10 : 16,
         paddingTop: 24, borderTop: `1px solid ${C_PAL.line}`,
         fontSize: 10, letterSpacing: 2, color: C_PAL.sub,
       }}>
         <span>© 2026 MAKOTYO — ALL RIGHTS RESERVED</span>
-        <a
-          href={EP.links[0].url}
-          target="_blank"
-          rel="noreferrer noopener"
-          style={{
-            color: C_PAL.ink,
-            textDecoration: "none",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 8,
-          }}
-        >
-          NAME YOUR PRICE ON BANDCAMP <Icon.ext size={10}/>
-        </a>
       </div>
     </section>
   );
@@ -622,7 +522,6 @@ function VariantC() {
       <C_TopBar syncKey={clockSyncKey} />
       <C_Hero />
       <C_Tracks onPlaybackStart={() => setClockSyncKey((prev) => prev + 1)} />
-      <C_Media />
       <C_Profile />
       <C_Buy />
     </div>

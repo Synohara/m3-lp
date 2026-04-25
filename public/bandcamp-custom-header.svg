@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="975" height="180" viewBox="0 0 975 180" role="img" aria-labelledby="title desc">
+  <title id="title">Polished Flame Bandcamp custom header</title>
+  <desc id="desc">Custom Bandcamp header for makotyo's Polished Flame EP.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#08080a"/>
+      <stop offset="0.54" stop-color="#17130f"/>
+      <stop offset="1" stop-color="#0b0b0d"/>
+    </linearGradient>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M0 35.5H36M35.5 0V36" stroke="#e4e0d6" stroke-opacity="0.055"/>
+      <circle cx="8" cy="10" r="1.5" fill="#e4e0d6" opacity="0.16"/>
+      <circle cx="27" cy="21" r="1.5" fill="#f29470" opacity="0.16"/>
+    </pattern>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.14"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+
+  <rect width="975" height="180" fill="url(#bg)"/>
+  <rect width="975" height="180" fill="url(#grid)"/>
+  <rect width="975" height="180" filter="url(#grain)" opacity="0.35"/>
+  <rect x="18" y="18" width="939" height="144" fill="none" stroke="#e4e0d6" stroke-opacity="0.16"/>
+
+  <g transform="translate(50 37)" fill="#e4e0d6" font-family="JetBrains Mono, Menlo, monospace">
+    <text x="0" y="0" font-size="14" letter-spacing="4" opacity="0.68">MAKOTYO</text>
+    <text x="0" y="58" font-size="48" font-weight="500">Polished Flame<tspan fill="#c24a1f">.</tspan></text>
+  </g>
+
+  <g transform="translate(762 28)">
+    <circle cx="54" cy="64" r="35" fill="none" stroke="#e4e0d6" stroke-width="1.5" stroke-opacity="0.75"/>
+    <circle cx="102" cy="64" r="35" fill="none" stroke="#e4e0d6" stroke-width="1.5" stroke-opacity="0.75"/>
+    <path d="M78 16C96 48 130 62 135 96C138 119 120 140 78 154C36 140 18 119 21 96C26 62 60 48 78 16Z" fill="#c24a1f" opacity="0.34"/>
+  </g>
+</svg>
