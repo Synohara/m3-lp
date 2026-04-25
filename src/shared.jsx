@@ -27,12 +27,12 @@ const EP = {
     },
     {
       n: "02",
-      title: "Scri",
+      title: "Fourth Pulse",
       len: "4:12",
       bpm: 160,
-      sample: "sampling: Ravel — Pavane",
+      sample: "sampling: Scriabin — Piano Sonata No. 4",
       audioFile: "scriabin_foot.mp3",
-      audioLabel: "Scri preview",
+      audioLabel: "Fourth Pulse preview",
     },
     {
       n: "03",
