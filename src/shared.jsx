@@ -204,7 +204,12 @@ function useAudioPlayer(trackCount, options = {}) {
   const { onStart } = options;
   const refs = React.useRef([]);
   const [active, setActive] = React.useState(null);
-  const [volume, setVolume] = React.useState(0.85);
+  const [volume, setVolume] = React.useState(() => {
+    if (typeof window === "undefined") return 0.85;
+    const stored = window.localStorage.getItem("m3-preview-volume");
+    const parsed = Number(stored);
+    return Number.isFinite(parsed) ? Math.min(1, Math.max(0, parsed)) : 0.85;
+  });
   const [progresses, setProgresses] = React.useState(() => Array(trackCount).fill(0));
   const [times, setTimes] = React.useState(() => Array.from({ length: trackCount }, () => ({
     current: 0,
@@ -227,6 +232,7 @@ function useAudioPlayer(trackCount, options = {}) {
     refs.current.forEach((audio) => {
       if (audio) audio.volume = volume;
     });
+    window.localStorage.setItem("m3-preview-volume", String(volume));
   }, [volume]);
 
   const updateTimeState = (index, patch) => {

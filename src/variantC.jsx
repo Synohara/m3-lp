@@ -169,29 +169,35 @@ function C_Tracks({ onPlaybackStart }) {
 
       <div style={{
         display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "auto minmax(160px, 260px)",
+        gridTemplateColumns: isMobile ? "1fr" : "auto minmax(220px, 320px)",
         alignItems: "center",
-        justifyContent: isMobile ? "stretch" : "end",
-        gap: isMobile ? 10 : 16,
-        margin: isMobile ? "-12px 0 28px" : "-18px 0 34px",
+        justifyContent: isMobile ? "stretch" : "space-between",
+        gap: isMobile ? 12 : 24,
+        margin: isMobile ? "10px 0 28px" : "-8px 0 34px",
+        padding: "14px 0",
+        borderTop: `1px solid ${C_PAL.line}`,
+        borderBottom: `1px solid ${C_PAL.line}`,
         color: C_PAL.dim,
         fontSize: 10,
         letterSpacing: 2,
       }}>
-        <span>VOLUME {Math.round(volume * 100).toString().padStart(2, "0")}</span>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.01"
-          value={volume}
-          aria-label="Preview volume"
-          onChange={(e) => setVolume(Number(e.currentTarget.value))}
-          style={{
-            width: "100%",
-            accentColor: C_PAL.accent,
-          }}
-        />
+        <span>PREVIEW VOLUME</span>
+        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 42px", alignItems: "center", gap: 12 }}>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={volume}
+            aria-label="Preview volume"
+            onChange={(e) => setVolume(Number(e.currentTarget.value))}
+            style={{
+              width: "100%",
+              accentColor: C_PAL.accent,
+            }}
+          />
+          <span style={{ textAlign: "right", color: C_PAL.text }}>{Math.round(volume * 100)}</span>
+        </div>
       </div>
 
       {!isMobile && (
