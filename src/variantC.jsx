@@ -132,7 +132,7 @@ function C_Hero() {
             }}>
               <Icon.play size={11}/> LISTEN
             </a>
-            <a href="#buy" style={{
+            <a href={EP.links[0].url} target="_blank" rel="noreferrer noopener" style={{
               padding: isMobile ? "14px 18px" : "14px 22px",
               border: `1px solid ${C_PAL.ink}`, color: C_PAL.ink,
               fontSize: 12, letterSpacing: 2, textDecoration: "none",
@@ -297,9 +297,6 @@ function C_Tracks({ onPlaybackStart }) {
                       letterSpacing: 0, fontWeight: 500,
                     }}>
                       {t.title}
-                    </div>
-                    <div style={{ marginTop: 6, fontSize: 10, letterSpacing: 1.2, color: C_PAL.dim }}>
-                      {t.sample}
                     </div>
                   </div>
                 </div>
